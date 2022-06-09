@@ -22,10 +22,25 @@ library
       EasyMode
   other-modules:
       Paths_easy_mode
+  other-extensions:
+      NoImplicitPrelude,
+      ScopedTypeVariables,
+      TypeApplications,
+      PartialTypeSignatures,
+      FlexibleContexts,
+      FlexibleInstances,
+      MultiParamTypeClasses
   hs-source-dirs:
       src
   build-depends:
-      base >=4.7 && <5
+      base >=4.7 && <5,
+      ghc-prim,
+      extra,
+      containers,
+      memory,
+      bytestring,
+      text,
+      cryptonite,
   default-language: Haskell2010
 
 --executable easy-mode
