@@ -2,7 +2,8 @@
 
 module EasyMode.Cast
 ( 
-    Cast
+    Cast(..),
+    OpinionatedCast(..)
 )
 where
 
