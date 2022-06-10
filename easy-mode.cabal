@@ -21,8 +21,10 @@ library
   exposed-modules:
       EasyMode
   other-modules:
+      EasyMode.Basics,
+      EasyMode.Cast,
       Paths_easy_mode
-  other-extensions:
+  default-extensions:
       NoImplicitPrelude,
       ScopedTypeVariables,
       TypeApplications,
@@ -47,8 +49,6 @@ library
 --  main-is: Main.hs
 --  other-modules:
 --      Paths_easy_mode
---  -- LANGUAGE extensions used by modules in this package.
---  -- other-extensions:
 --  hs-source-dirs:
 --      app
 --  ghc-options: -threaded -rtsopts -with-rtsopts=-N
