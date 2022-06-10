@@ -9,6 +9,7 @@ where
 
 import EasyMode.Basics
 import EasyMode.Error
+import GHC.Types (Int)
 
 -- * Cast & OpinionatedCast
 
