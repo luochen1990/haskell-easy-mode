@@ -7,6 +7,7 @@ module EasyMode
 )
 where
 
+import EasyMode.Basics as Export
 import EasyMode.Cast as Export
 
 import Data.Text (Text, pack, unpack)
