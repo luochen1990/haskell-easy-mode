@@ -9,4 +9,5 @@ main = do
     print(1.inc)
     print(1.double.inc)
     print(1.inc.double)
+    print(2.((+1) <<< (+2)))
 
