@@ -24,6 +24,7 @@ library
       EasyMode.Basics,
       EasyMode.Cast,
       EasyMode.Error,
+      EasyMode.List,
       Paths_easy_mode
   default-extensions:
       NoImplicitPrelude,

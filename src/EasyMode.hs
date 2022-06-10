@@ -10,6 +10,7 @@ where
 import EasyMode.Basics as Export
 import EasyMode.Cast as Export
 import EasyMode.Error as Export
+import EasyMode.List as Export
 
 import Data.Text (Text, pack, unpack)
 import Prelude (String, Integer, Bool(..), id)
