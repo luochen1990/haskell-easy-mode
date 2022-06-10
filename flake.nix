@@ -7,9 +7,9 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
         hpkgs = pkgs.haskellPackages;
-      in with pkgs.haskell.lib; rec {
+      in rec {
         defaultPackage = hpkgs.callCabal2nix "easy-mode" ./. { };
-        devShell = addBuildTools defaultPackage
+        devShell = pkgs.haskell.lib.addBuildTools defaultPackage
           (with hpkgs; [ haskell-language-server cabal-install ]);
       });
 }
