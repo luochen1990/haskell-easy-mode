@@ -5,13 +5,7 @@ module EasyMode
 )
 where
 
-import EasyMode.Basics as Export
-import EasyMode.Cast as Export
-import EasyMode.Error as Export
-import EasyMode.List as Export
-
-import Data.Text (Text, pack, unpack)
-import Prelude (String, Integer, Bool(..), id)
+import EasyMode.Layer3 as Export
 
 -- this is for RebindableSyntax
 --fromString :: String -> Text

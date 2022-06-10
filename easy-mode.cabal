@@ -21,10 +21,10 @@ library
   exposed-modules:
       EasyMode
   other-modules:
-      EasyMode.Basics,
-      EasyMode.Cast,
-      EasyMode.Error,
-      EasyMode.List,
+      EasyMode.Layer1.Basics,
+      EasyMode.Layer1.Error,
+      EasyMode.Layer2.Cast,
+      EasyMode.Layer3.List,
       Paths_easy_mode
   default-extensions:
       NoImplicitPrelude,

@@ -1,15 +1,15 @@
 {-# language OverloadedStrings #-}
 {-# language ConstraintKinds #-}
 
-module EasyMode.Cast
+module EasyMode.Layer2.Cast
 ( 
-    module EasyMode.Cast
+    module EasyMode.Layer2.Cast
 )
 where
 
-import EasyMode.Basics
-import EasyMode.Error
+import EasyMode.Layer1
 import GHC.Types (Int)
+import Data.String (String)
 
 -- * Cast & OpinionatedCast
 

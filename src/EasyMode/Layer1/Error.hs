@@ -1,6 +1,6 @@
 {-# language PolyKinds #-}
 
-module EasyMode.Error
+module EasyMode.Layer1.Error
 (
     module Export,
     blame,

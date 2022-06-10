@@ -1,15 +1,14 @@
-module EasyMode.List
+module EasyMode.Layer3.List
 (
-  module EasyMode.List,
+  module EasyMode.Layer3.List,
   module Export
 )
 where
 
+import EasyMode.Layer2
 import Data.List as Export hiding (head, tail, last, take, drop, (!!))
 import qualified Data.List as L
 import GHC.Integer (Integer)
-import EasyMode.Error
-import EasyMode.Cast (ocast)
 
 head :: Partial => [a] -> a
 head = L.head
