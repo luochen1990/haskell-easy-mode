@@ -1,3 +1,5 @@
+{-# language OverloadedStrings #-}
+
 module EasyMode.Cast
 ( 
     Cast
@@ -5,6 +7,7 @@ module EasyMode.Cast
 where
 
 import EasyMode.Basics
+import EasyMode.Error
 
 -- * Cast
 
@@ -29,5 +32,5 @@ instance Cast String Text       where cast = unpack
 
 instance Cast Integer Int       where cast = fromIntegral
 instance OpinionatedCast Int Integer where
-    ocast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then fromIntegral x else error ("cannot cast Integer to Int since overflow")
+    ocast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then fromIntegral x else blame ("cannot cast Integer to Int since overflow")
 

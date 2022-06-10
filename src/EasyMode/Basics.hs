@@ -18,7 +18,6 @@ import GHC.Enum as Export (maxBound, minBound)
 import GHC.Real as Export (fromIntegral)
 --import Data.Either.Extra
 import Data.List.Extra as Export (chunksOf)
-import GHC.Err as Export (error)
 import Control.Exception.Extra as Export (Partial)
 import Data.List as Export (iterate)
 import Data.Foldable as Export (Foldable)

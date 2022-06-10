@@ -23,6 +23,7 @@ library
   other-modules:
       EasyMode.Basics,
       EasyMode.Cast,
+      EasyMode.Error,
       Paths_easy_mode
   default-extensions:
       NoImplicitPrelude,
