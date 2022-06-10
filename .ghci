@@ -1,3 +1,4 @@
 :set -XOverloadedStrings
+:set -XOverloadedRecordDot
 :set +t
 :load EasyMode

@@ -33,6 +33,7 @@ library
       PartialTypeSignatures,
       FlexibleContexts,
       FlexibleInstances,
+      OverloadedRecordDot,
       MultiParamTypeClasses
   hs-source-dirs:
       src

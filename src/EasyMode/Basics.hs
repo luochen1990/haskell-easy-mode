@@ -1,6 +1,7 @@
 module EasyMode.Basics
 (
-    module Export
+    module Export,
+    module EasyMode.Basics
 )
 where
 
@@ -11,10 +12,10 @@ import Data.Bool as Export (Bool(..), (&&), (||))
 import Data.Eq as Export (Eq(..))
 import Data.Ord as Export (Ord(..))
 import Data.Maybe as Export (fromJust)
-import Data.Monoid as Export ((<>))
+import Data.Monoid as Export (Monoid(..), Endo(..))
 import GHC.Integer as Export (Integer)
 import GHC.Types as Export (Int)
-import GHC.Num as Export (Num, (+))
+import GHC.Num as Export (Num(..))
 import GHC.Enum as Export (maxBound, minBound)
 import GHC.Real as Export (fromIntegral)
 --import Data.Either.Extra
@@ -28,10 +29,22 @@ import qualified Data.List as List
 import qualified Data.Foldable as Foldable
 import qualified Data.Map as Map
 import qualified Data.Set as Set
-import Data.Function as Export ((&), id, (.))
+import Data.Function as Export ((&), id)
 import Data.List as Export (iterate, unfoldr)
 import Data.Text.Encoding as Export (encodeUtf8, decodeUtf8, decodeLatin1)
 import Data.Text as Export (Text, pack, unpack)
+
+import Data.Semigroup as Export (Semigroup(..))
+import Data.Monoid as Export (Monoid(..))
+import Control.Arrow as Export (Arrow(..), (<<<), (>>>))
+
+--instance Semigroup (a -> a) where
+
+infixl 9 .   
+
+{-# INLINE (.) #-}
+(.) :: a -> (a -> b) -> b
+x . f = f x
 
 --import Data.Time
 --import Data.Time.Clock.POSIX (utcTimeToPOSIXSeconds)
