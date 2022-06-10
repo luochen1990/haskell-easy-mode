@@ -2,6 +2,7 @@
 
 module EasyMode.Error
 (
+    module Export,
     blame,
     error,
     assume,
@@ -9,9 +10,10 @@ module EasyMode.Error
 )
 where
 
+import GHC.Stack as Export (HasCallStack)
+import Control.Exception.Extra as Export (Partial)
 import Data.Text (Text, pack, unpack)
 import qualified GHC.Err as E (error, errorWithoutStackTrace)
-import GHC.Stack (HasCallStack)
 import GHC.Exts (RuntimeRep, TYPE)
 import Data.Function ((.))
 import Data.Bool (Bool)
