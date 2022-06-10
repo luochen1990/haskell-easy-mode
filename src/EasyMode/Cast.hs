@@ -1,28 +1,34 @@
 {-# language OverloadedStrings #-}
+{-# language ConstraintKinds #-}
 
 module EasyMode.Cast
 ( 
-    Cast(..),
-    OpinionatedCast(..)
+    module EasyMode.Cast
 )
 where
 
 import EasyMode.Basics
 import EasyMode.Error
 
--- * Cast
+-- * Cast & OpinionatedCast
 
-class Cast b a where
-    cast :: a -> b
+class Cast target source where
+    cast :: source -> target
 
-class OpinionatedCast b a where
-    ocast :: Partial => a -> b
+class OpinionatedCast target source where
+    ocast :: Partial => source -> target
 
---class UnsafeCast b a where
---    unsafeCast :: a -> b
+--class UnsafeCast target source where
+--    unsafeCast :: source -> target
 
---instance Cast b a => OpinionatedCast b a where
+--instance Cast target source => OpinionatedCast target source where
 --    opinionatedCast = cast
+
+-- * ToText
+
+type ToText = Cast Text
+
+-- * instances
 
 instance Cast Text Text         where cast = id
 instance Cast Text ByteString   where cast = decodeUtf8
