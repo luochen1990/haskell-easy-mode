@@ -14,7 +14,8 @@ import Data.Ord as Export (Ord(..))
 import Data.Maybe as Export (fromJust)
 import Data.Monoid as Export (Monoid(..), Endo(..))
 import GHC.Integer as Export (Integer)
-import GHC.Types as Export (Int)
+import GHC.Types as Export (Int, IO)
+import System.IO as Export (print)
 import GHC.Num as Export (Num(..))
 import GHC.Enum as Export (maxBound, minBound)
 import GHC.Real as Export (fromIntegral)
@@ -37,6 +38,7 @@ import Data.Text as Export (Text, pack, unpack)
 import Data.Semigroup as Export (Semigroup(..))
 import Data.Monoid as Export (Monoid(..))
 import Control.Arrow as Export (Arrow(..), (<<<), (>>>))
+import Control.Monad as Export (Monad(..))
 
 --instance Semigroup (a -> a) where
 
