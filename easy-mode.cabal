@@ -3,9 +3,9 @@ name:               easy-mode
 version:            0.1.0.0
 
 synopsis: an easy-to-use alternative of prelude
-description: Please see the README on GitHub at <https://github.com/luochen1990/hs-easy-mode#readme>
-homepage: https://github.com/luochen1990/hs-easy-mode#readme
-bug-reports: https://github.com/luochen1990/hs-easy-mode/issues
+description: Please see the README on GitHub at <https://github.com/luochen1990/haskell-easy-mode#readme>
+homepage: https://github.com/luochen1990/haskell-easy-mode#readme
+bug-reports: https://github.com/luochen1990/haskell-easy-mode/issues
 
 author: LuoChen
 maintainer: luochen1990@gmail.com
