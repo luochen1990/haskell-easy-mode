@@ -130,7 +130,7 @@ import GHC.Integer (Integer)
 import Data.Bool (not)
 import Data.Functor (fmap)
 import Data.Hashable (Hashable)
-import Data.Foldable (toList)
+import qualified Data.Foldable as F (toList)
 
 head :: Partial => [a] -> a
 head = L.head
@@ -151,13 +151,13 @@ drop n xs = L.drop (ocast n) xs
 xs !! n = xs L.!! (ocast n)
 
 groupBy :: (Hashable k, Foldable f) => (a -> k) -> f a -> M.HashMap k [a]
-groupBy key xs = M.fromListWith (L.++) (L.map (\x -> (key x, L.singleton x)) (toList xs))
+groupBy key xs = M.fromListWith (L.++) (L.map (\x -> (key x, L.singleton x)) (F.toList xs))
 
 groupContinuously :: (Foldable f, Eq a) => f a -> [[a]]
-groupContinuously xs = L.group (toList xs)
+groupContinuously xs = L.group (F.toList xs)
 
 groupContinuouslyBy :: (Foldable f, Eq a) => (a -> a -> Bool) -> f a -> [[a]]
-groupContinuouslyBy eq xs = L.groupBy eq (toList xs)
+groupContinuouslyBy eq xs = L.groupBy eq (F.toList xs)
 
 foldl1 :: (Partial, Foldable t) => (a -> a -> a) -> t a -> a
 foldl1 op xs = assume (not (L.null xs)) (L.foldl1 op xs)
