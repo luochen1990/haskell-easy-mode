@@ -23,8 +23,11 @@ library
   other-modules:
       EasyMode.Layer1.Basics,
       EasyMode.Layer1.Error,
+      EasyMode.Layer1,
       EasyMode.Layer2.Cast,
+      EasyMode.Layer2,
       EasyMode.Layer3.List,
+      EasyMode.Layer3,
       Paths_easy_mode
   default-extensions:
       NoImplicitPrelude,
