@@ -44,6 +44,8 @@ library
       ghc-prim,
       extra,
       containers,
+      unordered-containers,
+      hashable,
       memory,
       bytestring,
       text,
