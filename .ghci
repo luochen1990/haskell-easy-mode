@@ -1,4 +1,5 @@
 :set -XOverloadedStrings
 :set -XOverloadedRecordDot
+:set -XDuplicateRecordFields
+:set -XNoFieldSelectors
 :set +t
-:load EasyMode

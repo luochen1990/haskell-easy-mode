@@ -6,7 +6,7 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        hpkgs = pkgs.haskellPackages;
+        hpkgs = pkgs.haskell.packages.ghc923;
       in rec {
         defaultPackage = hpkgs.callCabal2nix "easy-mode" ./. { };
         devShell = pkgs.haskell.lib.addBuildTools defaultPackage
