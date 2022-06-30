@@ -12,6 +12,13 @@ import Data.Foldable as EasyMode hiding (toList, foldr1, foldl1, length)
 import Data.Traversable as EasyMode
 import Control.Monad as EasyMode
 import Control.Arrow as EasyMode
+import Data.Typeable as EasyMode hiding (cast)
+import Data.Data as EasyMode hiding (cast)
+import qualified Data.List as List
+import qualified Data.Map as Map
+import qualified Data.Set as Set
+import qualified Data.Maybe as Maybe
+import qualified Data.Either as Either
 
 default (Integer, Rational, Float64, Text)
 
