@@ -24,3 +24,9 @@ import Control.Arrow as Export
 --ifThenElse :: Bool -> a -> a -> a
 --ifThenElse p x y = case p of True -> x; False -> y;
 
+-- f :: Partial => Text -> Integer
+-- f s = buckpassing (ocast s)
+-- 
+-- g :: Partial => Text -> Integer
+-- g s = buckpassing (f (s <> "0"))
+
