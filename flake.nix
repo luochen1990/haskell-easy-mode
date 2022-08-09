@@ -10,6 +10,6 @@
       in rec {
         defaultPackage = hpkgs.callCabal2nix "easy-mode" ./. { };
         devShell = pkgs.haskell.lib.addBuildTools defaultPackage
-          (with hpkgs; [ haskell-language-server cabal-install ]);
+          (with hpkgs; [ haskell-language-server cabal-install hpack ]);
       });
 }
