@@ -22,7 +22,7 @@ class Cast target source where
 class OpinionatedCast target source where
     ocast :: Partial => source -> target
     ocast x = case mcast x of
-        Nothing -> blame ("ocast failed")
+        Nothing -> complain ("ocast failed")
         Just y -> y
 
     mcast :: source -> Maybe target

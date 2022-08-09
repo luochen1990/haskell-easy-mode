@@ -3,10 +3,11 @@
 module EasyMode.Layer1.Error
 (
     module Export,
-    blame,
-    error,
+    complain,
     assume,
+    impossible,
     assert,
+    buckpassing,
 )
 where
 
@@ -19,14 +20,18 @@ import Data.Function ((.))
 import Data.Bool (Bool)
 import Data.List ((++))
 
-blame :: forall (r :: RuntimeRep). forall (a :: TYPE r). HasCallStack => Text -> a
-blame msg = E.errorWithoutStackTrace ("[Improper Call]: " ++ unpack msg)
-
-error :: forall (r :: RuntimeRep). forall (a :: TYPE r). Text -> a
-error msg = E.errorWithoutStackTrace ("[Internal Error]: " ++ unpack msg)
+complain :: forall (r :: RuntimeRep). forall (a :: TYPE r). HasCallStack => Text -> a
+complain msg = E.error ("[Improper Call]: " ++ unpack msg)
 
 assume :: HasCallStack => Bool -> a -> a
-assume c r = if c then r else E.errorWithoutStackTrace "[Improper Call]: assumption failed"
+assume c r = if c then r else E.error "[Improper Call]: assumption failed"
+
+impossible :: forall (r :: RuntimeRep). forall (a :: TYPE r). a
+impossible = E.errorWithoutStackTrace ("[Internal Error]: impossible branch accessed!")
 
 assert :: Bool -> a -> a
 assert c r = if c then r else E.errorWithoutStackTrace "[Internal Error]: assertion failed"
+
+buckpassing :: forall (r :: RuntimeRep). forall (a :: TYPE r). HasCallStack => a -> a
+buckpassing x = x
+
