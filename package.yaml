@@ -28,6 +28,7 @@ dependencies:
 - memory
 - bytestring
 - text
+- text-show
 - cryptonite
 
 library:
