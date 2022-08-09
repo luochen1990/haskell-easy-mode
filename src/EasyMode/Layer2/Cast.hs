@@ -46,7 +46,7 @@ instance Cast Integer Int       where cast = fromIntegral
 instance OpinionatedCast Int Integer where
     mcast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then Just (fromIntegral x) else Nothing
 
-    ocast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then fromIntegral x else blame ("cannot cast Integer to Int since overflow")
+    ocast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then fromIntegral x else complain ("cannot cast Integer to Int since overflow")
 
 instance Cast [(k, v)] (M.HashMap k v) where
     cast = M.toList
