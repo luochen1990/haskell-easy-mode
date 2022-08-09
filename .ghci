@@ -2,4 +2,5 @@
 :set -XOverloadedRecordDot
 :set -XDuplicateRecordFields
 :set -XNoFieldSelectors
+:set -XExtendedDefaultRules
 :set +t

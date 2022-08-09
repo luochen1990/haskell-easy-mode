@@ -44,6 +44,7 @@ library
       FlexibleContexts
       FlexibleInstances
       MultiParamTypeClasses
+      ExtendedDefaultRules
   build-depends:
       base >=4.7 && <5
     , bytestring
