@@ -13,6 +13,8 @@ import Data.String (String)
 import Data.Maybe (Maybe(..))
 import qualified Data.HashMap.Strict as M
 import Data.Hashable (Hashable)
+import Data.Char (ord, isDigit)
+import Prelude ((^), zip, sum, all, reverse)
 
 -- * Cast & PartialCast
 
@@ -53,6 +55,12 @@ instance Cast [(k, v)] (M.HashMap k v) where
 
 instance Hashable k => Cast (M.HashMap k v) [(k, v)] where
     cast = M.fromList
+
+instance PartialCast Integer String where
+    mcast s = let ds = reverse s in if all isDigit ds then Just (sum [10^i * fromIntegral (ord d - ord '0') | (i, d) <- zip [0..] ds]) else Nothing
+
+instance PartialCast Integer Text where
+    mcast s = mcast (unpack s)
 
 -- * special cast
 
