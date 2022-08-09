@@ -14,15 +14,15 @@ import Data.Maybe (Maybe(..))
 import qualified Data.HashMap.Strict as M
 import Data.Hashable (Hashable)
 
--- * Cast & OpinionatedCast
+-- * Cast & PartialCast
 
 class Cast target source where
     cast :: source -> target
 
-class OpinionatedCast target source where
-    ocast :: Partial => source -> target
+class PartialCast target source where
+    ocast :: Partial => source -> target -- ^ opinionated cast
     ocast x = case mcast x of
-        Nothing -> complain ("ocast failed")
+        Nothing -> complain ("opinionated cast failed!")
         Just y -> y
 
     mcast :: source -> Maybe target
@@ -30,8 +30,8 @@ class OpinionatedCast target source where
 --class UnsafeCast target source where
 --    unsafeCast :: source -> target
 
---instance Cast target source => OpinionatedCast target source where
---    opinionatedCast = cast
+--instance Cast target source => PartialCast target source where
+--    PartialCast = cast
 
 -- * instances
 
@@ -43,7 +43,7 @@ instance Cast Text String       where cast = pack
 instance Cast String Text       where cast = unpack
 
 instance Cast Integer Int       where cast = fromIntegral
-instance OpinionatedCast Int Integer where
+instance PartialCast Int Integer where
     mcast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then Just (fromIntegral x) else Nothing
 
     ocast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then fromIntegral x else complain ("cannot cast Integer to Int since overflow")
