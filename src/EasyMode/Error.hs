@@ -2,7 +2,7 @@
 {-# language OverloadedRecordDot #-}
 {-# language MagicHash, NoImplicitPrelude, ImplicitParams, RankNTypes #-}
 
-module EasyMode.Layer1.Error
+module EasyMode.Error
 (
     module Export,
     complain,

@@ -1,7 +1,7 @@
-module EasyMode.Layer1.Basics
+module EasyMode.Basics
 (
     module Export,
-    module EasyMode.Layer1.Basics
+    module EasyMode.Basics
 )
 where
 

@@ -25,14 +25,14 @@ source-repository head
 library
   exposed-modules:
       EasyMode
-      EasyMode.Layer1
-      EasyMode.Layer1.Basics
-      EasyMode.Layer1.Error
-      EasyMode.Layer1.Show
-      EasyMode.Layer2
-      EasyMode.Layer2.Cast
-      EasyMode.Layer3
-      EasyMode.Layer3.List
+      EasyMode.Basics
+      EasyMode.Cast
+      EasyMode.Error
+      EasyMode.Layers.L1
+      EasyMode.Layers.L2
+      EasyMode.Layers.L3
+      EasyMode.List
+      EasyMode.Show
   other-modules:
       Paths_easy_mode
   hs-source-dirs:

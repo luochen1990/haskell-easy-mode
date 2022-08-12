@@ -1,4 +1,4 @@
-module EasyMode.Layer3.List
+module EasyMode.List
 (
   -- (L.++), -- :: [a] -> [a] -> [a]
   -- L.head, -- :: [a] -> a
@@ -118,11 +118,11 @@ module EasyMode.Layer3.List
   L.genericSplitAt, -- :: Integral i => i -> [a] -> ([a], [a])
   L.genericIndex, -- :: Integral i => [a] -> i -> a
   L.genericReplicate, -- :: Integral i => i -> a -> [a]
-  module EasyMode.Layer3.List
+  module EasyMode.List
 )
 where
 
-import EasyMode.Layer2
+import EasyMode.Layers.L2
 import qualified Data.List as L
 import qualified Data.Text as T
 import qualified Data.HashMap.Strict as M

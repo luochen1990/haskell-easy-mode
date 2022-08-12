@@ -1,6 +1,6 @@
 {-# language UndecidableInstances #-}
 
-module EasyMode.Layer1.Show where
+module EasyMode.Show where
 
 import Data.Text (Text, pack, unpack)
 import qualified Prelude as P

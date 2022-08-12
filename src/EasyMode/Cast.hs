@@ -1,13 +1,13 @@
 {-# language OverloadedStrings #-}
 {-# language ConstraintKinds #-}
 
-module EasyMode.Layer2.Cast
+module EasyMode.Cast
 ( 
-    module EasyMode.Layer2.Cast
+    module EasyMode.Cast
 )
 where
 
-import EasyMode.Layer1
+import EasyMode.Layers.L1
 import GHC.Types (Int)
 import Data.String (String)
 import Data.Maybe (Maybe(..))
