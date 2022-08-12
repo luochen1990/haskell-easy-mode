@@ -1,6 +1,6 @@
 module EasyMode.Layer3.List
 (
-  (L.++), -- :: [a] -> [a] -> [a]
+  -- (L.++), -- :: [a] -> [a] -> [a]
   -- L.head, -- :: [a] -> a
   -- L.last, -- :: [a] -> a
   -- L.tail, -- :: [a] -> [a]

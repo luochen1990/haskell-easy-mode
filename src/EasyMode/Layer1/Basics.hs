@@ -69,3 +69,9 @@ infixl 9 .
 (.) :: a -> (a -> b) -> b
 x . f = f x
 
+infixr 5 ++
+
+{-# INLINE (++) #-}
+(++) :: Monoid a => a -> a -> a
+(++) = (<>)
+
