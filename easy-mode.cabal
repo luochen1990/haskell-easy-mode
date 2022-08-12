@@ -28,6 +28,7 @@ library
       EasyMode.Layer1
       EasyMode.Layer1.Basics
       EasyMode.Layer1.Error
+      EasyMode.Layer1.Show
       EasyMode.Layer2
       EasyMode.Layer2.Cast
       EasyMode.Layer3
