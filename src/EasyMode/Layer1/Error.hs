@@ -1,5 +1,6 @@
 {-# language PolyKinds #-}
-{-# LANGUAGE MagicHash, NoImplicitPrelude, ImplicitParams, RankNTypes #-}
+{-# language OverloadedRecordDot #-}
+{-# language MagicHash, NoImplicitPrelude, ImplicitParams, RankNTypes #-}
 
 module EasyMode.Layer1.Error
 (
@@ -18,7 +19,6 @@ import Data.Text (Text, pack, unpack)
 import qualified GHC.Err as E (error, errorWithoutStackTrace)
 import GHC.Exts (RuntimeRep, TYPE)
 import GHC.Stack (withFrozenCallStack, freezeCallStack, popCallStack, callStack, getCallStack, prettyCallStack, SrcLoc(..))
-import Data.Function ((.))
 import Data.Bool (Bool)
 import Data.List ((++))
 import Prelude (show, head, tail, fst, snd, length, (>=), (>))
@@ -54,7 +54,7 @@ assume c r = if c then r else
         caller_info = if length stack >= 2 then "\n Bug function: `" ++ caller_fname ++ "` (Partial without complain)" else ""
         loc_info = loc.srcLocFile ++ ":" ++ show loc.srcLocStartLine ++ ":" ++ show loc.srcLocStartCol
              ++ " ~ " ++ show loc.srcLocEndLine ++ ":" ++ show loc.srcLocEndCol
-    in E.error ("[Improper Call to `" ++ callee_fname ++ "`]: " ++ unpack msg ++ caller_info ++ "\n Bad code at: " ++ loc_info ++ "\n")
+    in E.error ("[Improper Call to `" ++ callee_fname ++ "`]: " ++ msg ++ caller_info ++ "\n Bad code at: " ++ loc_info ++ "\n")
 
 
 impossible :: forall (r :: RuntimeRep). forall (a :: TYPE r). HasCallStack => a
