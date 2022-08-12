@@ -1,5 +1,5 @@
-:set prompt "\n\ESC[23;26;27;38;5;244m\STX[%s]\ESC[m\STX \n\ESC[34m\STXλ> \ESC[m\STX"
-:set prompt-cont "\ESC[34m\STXλ| \ESC[m\STX"
+:set prompt "\n\ESC[23;26;27;38;5;244m\STX[%s]\ESC[m\STX \n\ESC[48;5;236m\ESC[34m λ \ESC[48;5;;38;5;236m \ESC[m\STX"
+:set prompt-cont "\ESC[48;5;236m\ESC[34m . \ESC[48;5;;38;5;236m \ESC[m\STX"
 :set -XOverloadedStrings
 :set -XOverloadedRecordDot
 :set -XDuplicateRecordFields
