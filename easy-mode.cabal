@@ -86,7 +86,6 @@ test-suite easy-mode-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Test
       Paths_easy_mode
   hs-source-dirs:
       test

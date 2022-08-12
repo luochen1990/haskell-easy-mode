@@ -1,15 +1,16 @@
+{-# language NoImplicitPrelude #-}
 {-# language OverloadedStrings #-}
 {-# language OverloadedRecordDot #-}
 {-# language DuplicateRecordFields #-}
 {-# language NoFieldSelectors #-}
 
+import qualified Prelude as P
 import EasyMode
-import GHC.Show (Show)
 
 inc = (+1)
 double = (*2)
 
-data Student = Student {name :: Text, score :: Integer} deriving (Show, Eq, Ord)
+data Student = Student {name :: Text, score :: Integer} deriving (P.Show, Eq, Ord)
 
 main :: IO ()
 main = do
