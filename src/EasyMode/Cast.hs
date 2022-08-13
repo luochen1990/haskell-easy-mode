@@ -33,10 +33,29 @@ class PartialCast target source where
     mcast :: source -> Maybe target
 
 
+-- * reflexive instance
+
+
+instance Cast a a where cast = id
+
+
+-- * transitive instances
+
+
+{-
+-- These can be Problematic: https://stackoverflow.com/questions/34318707/multiparameter-typeclasses-and-illegal-instance-declarations
+
+instance (Cast c b, Cast b a) => Cast c a where
+    cast = cast . cast
+
+instance (PartialCast c b, PartialCast b a) => PartialCast c a where
+    mcast = mcast . mcast
+    ocast = ocast . ocast
+-}
+
+
 -- * instances for text
 
-
-instance Cast Text Text         where cast = id
 
 instance Cast Text ByteString   where cast = decodeUtf8
 
