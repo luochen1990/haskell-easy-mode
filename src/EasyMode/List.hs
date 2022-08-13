@@ -142,13 +142,13 @@ tail :: Partial => [a] -> [a]
 tail = L.tail
 
 take :: Integer -> [a] -> [a]
-take n xs = L.take (ocast n) xs
+take n xs = L.take (pcast n) xs
 
 drop :: Integer -> [a] -> [a]
-drop n xs = L.drop (ocast n) xs
+drop n xs = L.drop (pcast n) xs
 
 (!!) :: [a] -> Integer -> a
-xs !! n = xs L.!! (ocast n)
+xs !! n = xs L.!! (pcast n)
 
 groupBy :: (Hashable k, Foldable f) => (a -> k) -> f a -> M.HashMap k [a]
 groupBy key xs = M.fromListWith (L.++) (L.map (\x -> (key x, L.singleton x)) (F.toList xs))
@@ -172,10 +172,10 @@ length :: Foldable t => t a -> Integer
 length xs = cast (L.length xs)
 
 replicate :: Integer -> a -> [a]
-replicate n x = L.replicate (ocast n) x
+replicate n x = L.replicate (pcast n) x
 
 splitAt :: Integer -> [a] -> ([a], [a])
-splitAt n xs = L.splitAt (ocast n) xs
+splitAt n xs = L.splitAt (pcast n) xs
 
 elemIndex :: Eq a => a -> [a] -> Maybe Integer
 elemIndex x xs = fmap cast (L.elemIndex x xs)

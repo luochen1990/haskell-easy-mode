@@ -20,17 +20,20 @@ import Prelude ((^), zip, sum, all, reverse, Double, Float, Rational, realToFrac
 
 -- * Cast & PartialCast
 
-{- Rule:
-    forall a b: Type, x: a.  (ocast (cast x :: b) :: a) == x
+{-
+ 
+ Rule 1: cast should not lost information:
 
- -}
+    forall a b: Type, x: a.  (pcast (cast x :: b) :: a) == x
+
+-}
 
 class Cast target source where
     cast :: source -> target
 
 class PartialCast target source where
-    ocast :: Partial => source -> target -- ^ opinionated cast
-    ocast x = case mcast x of
+    pcast :: Partial => source -> target -- ^ opinionated cast
+    pcast x = case mcast x of
         Nothing -> complain ("opinionated cast failed!")
         Just y -> y
 
@@ -54,7 +57,7 @@ instance (Cast c b, Cast b a) => Cast c a where
 
 instance (PartialCast c b, PartialCast b a) => PartialCast c a where
     mcast = mcast . mcast
-    ocast = ocast . ocast
+    pcast = pcast . pcast
 -}
 
 
@@ -79,7 +82,7 @@ instance Cast Integer Int where cast = fromIntegral
 
 instance PartialCast Int Integer where
     mcast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then Just (fromIntegral x) else Nothing
-    ocast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then fromIntegral x else complain ("cannot cast Integer to Int since overflow")
+    pcast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then fromIntegral x else complain ("cannot cast Integer to Int since overflow")
 
 instance PartialCast Integer String where
     mcast s = let ds = reverse s in if all isDigit ds then Just (sum [10^i * fromIntegral (ord d - ord '0') | (i, d) <- zip [0..] ds]) else Nothing
