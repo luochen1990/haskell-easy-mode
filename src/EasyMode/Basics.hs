@@ -21,7 +21,9 @@ import Data.Eq as Export (Eq(..))
 import Data.Ord as Export (Ord(..))
 import GHC.Num as Export (Num(..))
 import GHC.Enum as Export (maxBound, minBound)
-import GHC.Real as Export (fromIntegral)
+import GHC.Float as Export ((**))
+import GHC.Real as Export (div, mod, divMod, Integral, Ratio, Rational)
+import qualified GHC.Real as P ((%))
 
 -- * simple container types
 
@@ -74,4 +76,16 @@ infixr 5 ++
 {-# INLINE (++) #-}
 (++) :: Monoid a => a -> a -> a
 (++) = (<>)
+
+infixl 7 //
+
+{-# INLINE (//) #-}
+(//) :: Integral a => a -> a -> a
+(//) = div
+
+infixl 7 /
+
+{-# INLINE (/) #-}
+(/) :: Integral a => a -> a -> Ratio a
+(/) = (P.%)
 

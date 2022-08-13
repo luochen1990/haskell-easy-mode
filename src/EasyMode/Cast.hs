@@ -14,6 +14,7 @@ import Data.Maybe (Maybe(..))
 import qualified Data.HashMap.Strict as M
 import Data.Hashable (Hashable)
 import Data.Char (ord, isDigit)
+import GHC.Real (fromIntegral)
 import Prelude ((^), zip, sum, all, reverse)
 
 -- * Cast & PartialCast
