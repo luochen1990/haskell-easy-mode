@@ -17,7 +17,9 @@ import Data.Char (ord, isDigit)
 import GHC.Real (fromIntegral)
 import Prelude ((^), zip, sum, all, reverse)
 
+
 -- * Cast & PartialCast
+
 
 class Cast target source where
     cast :: source -> target
@@ -30,32 +32,31 @@ class PartialCast target source where
 
     mcast :: source -> Maybe target
 
---class UnsafeCast target source where
---    unsafeCast :: source -> target
 
---instance Cast target source => PartialCast target source where
---    PartialCast = cast
+-- * instances for text
 
--- * instances
 
 instance Cast Text Text         where cast = id
+
 instance Cast Text ByteString   where cast = decodeUtf8
+
+
 -- instance Cast Text (Digest a)   where cast = toHex
+
+
 instance Cast Text String       where cast = pack
 
 instance Cast String Text       where cast = unpack
 
+
+-- * instances for number
+
+
 instance Cast Integer Int       where cast = fromIntegral
+
 instance PartialCast Int Integer where
     mcast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then Just (fromIntegral x) else Nothing
-
     ocast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then fromIntegral x else complain ("cannot cast Integer to Int since overflow")
-
-instance Cast [(k, v)] (M.HashMap k v) where
-    cast = M.toList
-
-instance Hashable k => Cast (M.HashMap k v) [(k, v)] where
-    cast = M.fromList
 
 instance PartialCast Integer String where
     mcast s = let ds = reverse s in if all isDigit ds then Just (sum [10^i * fromIntegral (ord d - ord '0') | (i, d) <- zip [0..] ds]) else Nothing
@@ -63,7 +64,22 @@ instance PartialCast Integer String where
 instance PartialCast Integer Text where
     mcast s = mcast (unpack s)
 
--- * special cast
+
+-- * instances for maps
+
+
+instance Cast [(k, v)] (M.HashMap k v) where
+    cast = M.toList
+
+instance Hashable k => Cast (M.HashMap k v) [(k, v)] where
+    cast = M.fromList
+
+
+-- * helper functions
+
+
+toInteger :: Cast Integer a => a -> Integer
+toInteger = cast
 
 toText :: Cast Text a => a -> Text
 toText = cast
