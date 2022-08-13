@@ -22,7 +22,7 @@ import Data.Ord as Export (Ord(..))
 import GHC.Num as Export (Num(..))
 import GHC.Enum as Export (maxBound, minBound)
 import GHC.Float as Export ((**))
-import GHC.Real as Export (div, mod, divMod, Integral, Ratio, Rational)
+import GHC.Real as Export (div, mod, divMod, Integral, Ratio, Rational, floor, ceiling, round, truncate, properFraction)
 import qualified GHC.Real as P ((%))
 
 -- * simple container types
