@@ -15,11 +15,15 @@ import qualified Data.HashMap.Strict as M
 import Data.Hashable (Hashable)
 import Data.Char (ord, isDigit)
 import GHC.Real (fromIntegral)
-import Prelude ((^), zip, sum, all, reverse)
+import Prelude ((^), zip, sum, all, reverse, Double, Float, Rational, realToFrac)
 
 
 -- * Cast & PartialCast
 
+{- Rule:
+    forall a b: Type, x: a.  (ocast (cast x :: b) :: a) == x
+
+ -}
 
 class Cast target source where
     cast :: source -> target
@@ -57,21 +61,21 @@ instance (PartialCast c b, PartialCast b a) => PartialCast c a where
 -- * instances for text
 
 
-instance Cast Text ByteString   where cast = decodeUtf8
+instance Cast Text ByteString where cast = decodeUtf8
 
 
 -- instance Cast Text (Digest a)   where cast = toHex
 
 
-instance Cast Text String       where cast = pack
+instance Cast Text String where cast = pack
 
-instance Cast String Text       where cast = unpack
+instance Cast String Text where cast = unpack
 
 
 -- * instances for number
 
 
-instance Cast Integer Int       where cast = fromIntegral
+instance Cast Integer Int where cast = fromIntegral
 
 instance PartialCast Int Integer where
     mcast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then Just (fromIntegral x) else Nothing
@@ -80,18 +84,31 @@ instance PartialCast Int Integer where
 instance PartialCast Integer String where
     mcast s = let ds = reverse s in if all isDigit ds then Just (sum [10^i * fromIntegral (ord d - ord '0') | (i, d) <- zip [0..] ds]) else Nothing
 
-instance PartialCast Integer Text where
-    mcast s = mcast (unpack s)
+instance PartialCast Integer Text where mcast s = mcast (unpack s)
+
+instance Cast Integer Bool where cast b = if b then 1 else 0
+
+instance Cast Int Bool where cast b = if b then 1 else 0
+
+instance Cast Double Int where cast = fromIntegral
+
+instance Cast Double Integer where cast = fromIntegral
+
+instance Cast Double Float where cast = realToFrac 
+
+instance Cast Float Int where cast = fromIntegral
+
+instance Cast Float Integer where cast = fromIntegral
+
+instance Cast Float Double where cast = realToFrac 
 
 
 -- * instances for maps
 
 
-instance Cast [(k, v)] (M.HashMap k v) where
-    cast = M.toList
+instance Cast [(k, v)] (M.HashMap k v) where cast = M.toList
 
-instance Hashable k => Cast (M.HashMap k v) [(k, v)] where
-    cast = M.fromList
+instance Hashable k => Cast (M.HashMap k v) [(k, v)] where cast = M.fromList
 
 
 -- * helper functions
