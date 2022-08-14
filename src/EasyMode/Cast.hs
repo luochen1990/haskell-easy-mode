@@ -15,7 +15,7 @@ import qualified Data.HashMap.Strict as M
 import Data.Hashable (Hashable)
 import Data.Char (ord, isDigit)
 import GHC.Real (fromIntegral)
-import Prelude ((^), zip, sum, all, reverse, Double, Float, Rational, realToFrac)
+import Prelude ((^), zip, sum, all, reverse, Rational, realToFrac)
 
 
 -- * Cast & PartialCast
@@ -93,18 +93,21 @@ instance Cast Integer Bool where cast b = if b then 1 else 0
 
 instance Cast Int Bool where cast b = if b then 1 else 0
 
-instance Cast Double Int where cast = fromIntegral
+instance Cast Float64 Int where cast = fromIntegral
 
-instance Cast Double Integer where cast = fromIntegral
+instance Cast Float64 Integer where cast = fromIntegral
 
-instance Cast Double Float where cast = realToFrac 
+instance Cast Float64 Float32 where cast = realToFrac 
 
-instance Cast Float Int where cast = fromIntegral
+instance Integral a => Cast Float64 (Ratio a) where cast = realToFrac 
 
-instance Cast Float Integer where cast = fromIntegral
+instance Cast Float32 Int where cast = fromIntegral
 
-instance Cast Float Double where cast = realToFrac 
+instance Cast Float32 Integer where cast = fromIntegral
 
+instance Cast Float32 Float64 where cast = realToFrac 
+
+instance Integral a => Cast Float32 (Ratio a) where cast = realToFrac 
 
 -- * instances for maps
 
@@ -119,6 +122,9 @@ instance Hashable k => Cast (M.HashMap k v) [(k, v)] where cast = M.fromList
 
 toInteger :: Cast Integer a => a -> Integer
 toInteger = cast
+
+toFloat :: Cast Float64 a => a -> Float64
+toFloat = cast
 
 toText :: Cast Text a => a -> Text
 toText = cast

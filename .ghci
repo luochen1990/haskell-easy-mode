@@ -7,3 +7,5 @@
 :set -XExtendedDefaultRules
 :set +m
 :set +t
+-- :type +d
+-- default (Integer, Rational, Float64, Text)

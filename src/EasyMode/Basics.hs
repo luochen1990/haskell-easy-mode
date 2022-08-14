@@ -22,8 +22,10 @@ import Data.Ord as Export (Ord(..))
 import GHC.Num as Export (Num(..))
 import GHC.Enum as Export (maxBound, minBound)
 import GHC.Float as Export ((**))
-import GHC.Real as Export (div, mod, divMod, Integral, Ratio, Rational, floor, ceiling, round, truncate, properFraction)
+import GHC.Real as Export ((/), div, mod, divMod, Integral, Ratio, Rational, floor, ceiling, round, truncate, properFraction)
 import qualified GHC.Real as P ((%))
+import qualified GHC.Float as P (Float, Double)
+import qualified Prelude as P (Int)
 
 -- * simple container types
 
@@ -63,6 +65,12 @@ import Data.Monoid as Export (Monoid(..))
 import Control.Arrow as Export (Arrow(..), (<<<), (>>>))
 import Control.Monad as Export (Monad(..))
 
+-- * renames
+
+type Int64 = P.Int
+type Float32 = P.Float
+type Float64 = P.Double
+
 -- * syntax
 
 infixl 9 .   
@@ -83,9 +91,9 @@ infixl 7 //
 (//) :: Integral a => a -> a -> a
 (//) = div
 
-infixl 7 /
+-- infixl 7 /
 
-{-# INLINE (/) #-}
-(/) :: Integral a => a -> a -> Ratio a
-(/) = (P.%)
+-- {-# INLINE (/) #-}
+-- (/) :: Integral a => a -> a -> Ratio a
+-- (/) = (P.%)
 

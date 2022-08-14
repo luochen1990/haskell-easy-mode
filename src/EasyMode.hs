@@ -13,6 +13,8 @@ import Data.Traversable as EasyMode
 import Control.Monad as EasyMode
 import Control.Arrow as EasyMode
 
+default (Integer, Rational, Float64, Text)
+
 -- this is for RebindableSyntax
 --fromString :: String -> Text
 --fromString = pack
