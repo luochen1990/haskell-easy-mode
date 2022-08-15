@@ -40,12 +40,18 @@ library
   default-extensions:
       NoImplicitPrelude
       ScopedTypeVariables
-      TypeApplications
       PartialTypeSignatures
+      TypeApplications
       FlexibleContexts
       FlexibleInstances
       MultiParamTypeClasses
-      ExtendedDefaultRules
+      OverloadedStrings
+      OverloadedRecordDot
+      DuplicateRecordFields
+      NoFieldSelectors
+      DeriveDataTypeable
+      DerivingVia
+      StandaloneDeriving
   build-depends:
       base >=4.7 && <5
     , bytestring

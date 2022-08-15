@@ -36,12 +36,18 @@ library:
   default-extensions:
   - NoImplicitPrelude
   - ScopedTypeVariables
-  - TypeApplications
   - PartialTypeSignatures
+  - TypeApplications
   - FlexibleContexts
   - FlexibleInstances
   - MultiParamTypeClasses
-  - ExtendedDefaultRules
+  - OverloadedStrings
+  - OverloadedRecordDot
+  - DuplicateRecordFields
+  - NoFieldSelectors
+  - DeriveDataTypeable
+  - DerivingVia
+  - StandaloneDeriving
 
 executables:
   easy-mode-exe:
