@@ -1,27 +1,24 @@
-{-# language OverloadedStrings #-}
-{-# language ConstraintKinds #-}
+{-# LANGUAGE ConstraintKinds #-}
+{-# LANGUAGE OverloadedStrings #-}
 
-module EasyMode.Cast
-( 
-    module EasyMode.Cast
-)
-where
+module EasyMode.Cast (
+    module EasyMode.Cast,
+) where
 
-import EasyMode.Layers.L1
-import GHC.Types (Int)
-import Data.String (String)
-import Data.Maybe (Maybe(..))
+import Data.Char (isDigit, ord)
 import qualified Data.HashMap.Strict as M
 import Data.Hashable (Hashable)
-import Data.Char (ord, isDigit)
+import Data.Maybe (Maybe (..))
+import Data.String (String)
+import EasyMode.Layers.L1
 import GHC.Real (fromIntegral)
-import Prelude ((^), zip, sum, all, reverse, Rational, realToFrac)
-
+import GHC.Types (Int)
+import Prelude (Rational, all, realToFrac, reverse, sum, zip, (^))
 
 -- * Cast & PartialCast
 
 {-
- 
+
  Rule 1: cast should not lost information:
 
     forall a b: Type, x: a.  (pcast (cast x :: b) :: a) == x
@@ -32,22 +29,22 @@ class Cast target source where
     cast :: source -> target
 
 class PartialCast target source where
-    pcast :: Partial => source -> target -- ^ opinionated cast
+    pcast ::
+        Partial =>
+        source ->
+        -- | opinionated cast
+        target
     pcast x = case mcast x of
         Nothing -> complain ("opinionated cast failed!")
         Just y -> y
 
     mcast :: source -> Maybe target
 
-
 -- * reflexive instance
-
 
 instance Cast a a where cast = id
 
-
 -- * transitive instances
-
 
 {-
 -- These can be Problematic: https://stackoverflow.com/questions/34318707/multiparameter-typeclasses-and-illegal-instance-declarations
@@ -60,23 +57,17 @@ instance (PartialCast c b, PartialCast b a) => PartialCast c a where
     pcast = pcast . pcast
 -}
 
-
 -- * instances for text
-
 
 instance Cast Text ByteString where cast = decodeUtf8
 
-
 -- instance Cast Text (Digest a)   where cast = toHex
-
 
 instance Cast Text String where cast = pack
 
 instance Cast String Text where cast = unpack
 
-
 -- * instances for number
-
 
 instance Cast Integer Int where cast = fromIntegral
 
@@ -85,7 +76,7 @@ instance PartialCast Int Integer where
     pcast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then fromIntegral x else complain ("cannot cast Integer to Int since overflow")
 
 instance PartialCast Integer String where
-    mcast s = let ds = reverse s in if all isDigit ds then Just (sum [10^i * fromIntegral (ord d - ord '0') | (i, d) <- zip [0..] ds]) else Nothing
+    mcast s = let ds = reverse s in if all isDigit ds then Just (sum [10 ^ i * fromIntegral (ord d - ord '0') | (i, d) <- zip [0 ..] ds]) else Nothing
 
 instance PartialCast Integer Text where mcast s = mcast (unpack s)
 
@@ -97,28 +88,25 @@ instance Cast Float64 Int where cast = fromIntegral
 
 instance Cast Float64 Integer where cast = fromIntegral
 
-instance Cast Float64 Float32 where cast = realToFrac 
+instance Cast Float64 Float32 where cast = realToFrac
 
-instance Integral a => Cast Float64 (Ratio a) where cast = realToFrac 
+instance Integral a => Cast Float64 (Ratio a) where cast = realToFrac
 
 instance Cast Float32 Int where cast = fromIntegral
 
 instance Cast Float32 Integer where cast = fromIntegral
 
-instance Cast Float32 Float64 where cast = realToFrac 
+instance Cast Float32 Float64 where cast = realToFrac
 
-instance Integral a => Cast Float32 (Ratio a) where cast = realToFrac 
+instance Integral a => Cast Float32 (Ratio a) where cast = realToFrac
 
 -- * instances for maps
-
 
 instance Cast [(k, v)] (M.HashMap k v) where cast = M.toList
 
 instance Hashable k => Cast (M.HashMap k v) [(k, v)] where cast = M.fromList
 
-
 -- * helper functions
-
 
 toInteger :: Cast Integer a => a -> Integer
 toInteger = cast
@@ -134,4 +122,3 @@ toPairs = cast
 
 toMap :: Hashable k => [(k, v)] -> M.HashMap k v
 toMap = cast
-

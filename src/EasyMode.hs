@@ -1,40 +1,37 @@
-module EasyMode
-(
-    module EasyMode
-)
-where
+module EasyMode (
+    module EasyMode,
+) where
 
-import EasyMode.Layers.L3 as EasyMode
-import Data.Maybe as EasyMode
-import Data.Either as EasyMode
-import Data.Monoid as EasyMode
-import Data.Foldable as EasyMode hiding (toList, foldr1, foldl1, length)
-import Data.Traversable as EasyMode
-import Control.Monad as EasyMode
 import Control.Arrow as EasyMode
-import Data.Typeable as EasyMode hiding (cast)
+import Control.Monad as EasyMode
 import Data.Data as EasyMode hiding (cast)
+import Data.Either as EasyMode
+import qualified Data.Either as Either
+import Data.Foldable as EasyMode hiding (foldl1, foldr1, length, toList)
 import qualified Data.List as List
 import qualified Data.Map as Map
-import qualified Data.Set as Set
+import Data.Maybe as EasyMode
 import qualified Data.Maybe as Maybe
-import qualified Data.Either as Either
+import Data.Monoid as EasyMode
+import qualified Data.Set as Set
+import Data.Traversable as EasyMode
+import Data.Typeable as EasyMode hiding (cast)
+import EasyMode.Layers.L3 as EasyMode
 
 default (Integer, Rational, Float64, Text)
 
 -- this is for RebindableSyntax
---fromString :: String -> Text
---fromString = pack
+-- fromString :: String -> Text
+-- fromString = pack
 --
---fromInteger :: Integer -> Integer
---fromInteger = id
+-- fromInteger :: Integer -> Integer
+-- fromInteger = id
 --
---ifThenElse :: Bool -> a -> a -> a
---ifThenElse p x y = case p of True -> x; False -> y;
+-- ifThenElse :: Bool -> a -> a -> a
+-- ifThenElse p x y = case p of True -> x; False -> y;
 
 -- f :: Partial => Text -> Integer
 -- f s = buckpassing (ocast s)
--- 
+--
 -- g :: Partial => Text -> Integer
 -- g s = buckpassing (f (s <> "0"))
-

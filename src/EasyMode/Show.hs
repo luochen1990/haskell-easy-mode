@@ -1,13 +1,14 @@
-{-# language UndecidableInstances #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module EasyMode.Show (
-    show
+    show,
 ) where
 
-import Data.Text (Text, pack, unpack)
-import qualified Prelude as P
-import qualified GHC.Real as P ((%), Ratio((:%)))
 import Data.Function ((&))
+import Data.Text (Text, pack, unpack)
+import qualified GHC.Real as P (Ratio ((:%)), (%))
+import qualified Prelude as P
+
 -- import qualified TextShow as T
 -- import Data.Text.Lazy as T (toStrict)
 -- import TextShow (TextShow)
@@ -15,11 +16,10 @@ import Data.Function ((&))
 show :: P.Show a => a -> Text
 show x = pack (P.show x)
 
-
-instance {-# OVERLAPPING #-} P.Show P.Rational  where
+instance {-# OVERLAPPING #-} P.Show P.Rational where
     {-# SPECIALIZE instance P.Show P.Rational #-}
-    showsPrec p (x P.:% y)  =  P.showParen (p P.> 7) P.$
-                               P.showsPrec 8 x P..
-                               P.showString " / " P..
-                               P.showsPrec 8 y
-
+    showsPrec p (x P.:% y) =
+        P.showParen (p P.> 7) P.$
+            P.showsPrec 8 x
+                P.. P.showString " / "
+                P.. P.showsPrec 8 y

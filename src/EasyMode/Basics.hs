@@ -1,69 +1,68 @@
-module EasyMode.Basics
-(
+module EasyMode.Basics (
     module Export,
-    module EasyMode.Basics
-)
-where
+    module EasyMode.Basics,
+) where
 
--- * basic types
+-- basic types
 
-import Data.Bool as Export (Bool(..), (&&), (||))
-import Data.Text as Export (Text, pack, unpack)
-import Data.Char as Export (Char)
+import Data.Bool as Export (Bool (..), (&&), (||))
 import Data.ByteString as Export (ByteString)
---import Data.String as Export (String)
-import Data.Text.Encoding as Export (encodeUtf8, decodeUtf8, decodeLatin1)
+import Data.Char as Export (Char)
+import Data.Text as Export (Text, pack, unpack)
 
--- * number types
+-- import Data.String as Export (String)
+import Data.Text.Encoding as Export (decodeLatin1, decodeUtf8, encodeUtf8)
 
-import GHC.Integer as Export (Integer)
-import Data.Eq as Export (Eq(..))
-import Data.Ord as Export (Ord(..))
-import GHC.Num as Export (Num(..))
+-- number types
+
+import Data.Eq as Export (Eq (..))
+import Data.Ord as Export (Ord (..))
 import GHC.Enum as Export (maxBound, minBound)
 import GHC.Float as Export ((**))
-import GHC.Real as Export ((/), div, mod, divMod, Integral, Ratio, Rational, floor, ceiling, round, truncate, properFraction)
+import qualified GHC.Float as P (Double, Float)
+import GHC.Integer as Export (Integer)
+import GHC.Num as Export (Num (..))
+import GHC.Real as Export (Integral, Ratio, Rational, ceiling, div, divMod, floor, mod, properFraction, round, truncate, (/))
 import qualified GHC.Real as P ((%))
-import qualified GHC.Float as P (Float, Double)
 import qualified Prelude as P (Int)
 
--- * simple container types
+-- simple container types
 
-import Data.Maybe as Export (Maybe(..), fromJust)
-import Data.Either as Export (Either(..))
+import Data.Either as Export (Either (..))
 import Data.Either.Extra as Export (fromLeft', fromRight', mapLeft, mapRight)
-import Data.Monoid as Export (Monoid(..), Endo(..))
+import Data.Maybe as Export (Maybe (..), fromJust)
+import Data.Monoid as Export (Endo (..), Monoid (..))
 
--- * list types
+-- list types
 
-import qualified Data.List as List
-import qualified Data.Foldable as Foldable
-import Data.List.Extra as Export (chunksOf)
-import Data.List as Export (iterate, unfoldr)
 import Data.Foldable as Export (Foldable)
+import qualified Data.Foldable as Foldable
+import Data.List as Export (iterate, unfoldr)
+import qualified Data.List as List
+import Data.List.Extra as Export (chunksOf)
 
--- * container types
+-- container types
 
-import qualified Data.Map as Map
-import qualified Data.Set as Set
 import Data.Map as Export (Map)
+import qualified Data.Map as Map
 import Data.Set as Export (Set)
+import qualified Data.Set as Set
 
--- * io types
+-- io types
 
 import GHC.Types as Export (IO)
 import System.IO as Export (print)
 
--- * functions
+-- functions
 
 import Data.Function as Export (id)
 
--- * abstract algebra
+-- abstract algebra
 
-import Data.Semigroup as Export (Semigroup(..))
-import Data.Monoid as Export (Monoid(..))
-import Control.Arrow as Export (Arrow(..), (<<<), (>>>))
-import Control.Monad as Export (Monad(..))
+import Control.Arrow as Export (Arrow (..), (<<<), (>>>))
+import Control.Monad as Export (Monad (..))
+import Data.Monoid as Export (Monoid (..))
+import Data.Semigroup as Export (Semigroup (..))
 
 -- * renames
 
@@ -73,7 +72,7 @@ type Float64 = P.Double
 
 -- * syntax
 
-infixl 9 .   
+infixl 9 .
 
 {-# INLINE (.) #-}
 (.) :: a -> (a -> b) -> b
@@ -96,4 +95,3 @@ infixl 7 //
 -- {-# INLINE (/) #-}
 -- (/) :: Integral a => a -> a -> Ratio a
 -- (/) = (P.%)
-

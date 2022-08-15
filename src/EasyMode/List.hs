@@ -1,5 +1,4 @@
-module EasyMode.List
-(
+module EasyMode.List (
   -- (L.++), -- :: [a] -> [a] -> [a]
   -- L.head, -- :: [a] -> a
   -- L.last, -- :: [a] -> a
@@ -118,19 +117,18 @@ module EasyMode.List
   -- L.genericSplitAt, -- :: Integral i => i -> [a] -> ([a], [a])
   -- L.genericIndex, -- :: Integral i => [a] -> i -> a
   -- L.genericReplicate, -- :: Integral i => i -> a -> [a]
-  module EasyMode.List
-)
-where
+  module EasyMode.List,
+) where
 
-import EasyMode.Layers.L2
+import Data.Bool (not)
+import qualified Data.Foldable as F (toList)
+import Data.Functor (fmap)
+import qualified Data.HashMap.Strict as M
+import Data.Hashable (Hashable)
 import qualified Data.List as L
 import qualified Data.Text as T
-import qualified Data.HashMap.Strict as M
+import EasyMode.Layers.L2
 import GHC.Integer (Integer)
-import Data.Bool (not)
-import Data.Functor (fmap)
-import Data.Hashable (Hashable)
-import qualified Data.Foldable as F (toList)
 
 head :: Partial => [a] -> a
 head = L.head
@@ -200,4 +198,3 @@ unlines = T.unlines
 
 unwords :: [Text] -> Text
 unwords = T.unwords
-
