@@ -1,11 +1,17 @@
 :set prompt "\n\ESC[23;26;27;38;5;244m\STX[%s]\ESC[m\STX \n\ESC[48;5;236m\ESC[34m λ \ESC[48;5;;38;5;236m \ESC[m\STX"
 :set prompt-cont "\ESC[48;5;236m\ESC[34m   \ESC[48;5;;38;5;236m \ESC[m\STX"
-:set -XOverloadedStrings
-:set -XOverloadedRecordDot
-:set -XDuplicateRecordFields
-:set -XNoFieldSelectors
-:set -XExtendedDefaultRules
+
+:seti -XOverloadedStrings
+:seti -XOverloadedRecordDot
+:seti -XDuplicateRecordFields
+:seti -XNoFieldSelectors
+:seti -XPartialTypeSignatures
+:seti -XScopedTypeVariables
+:seti -XDeriveDataTypeable
+
+:seti -XExtendedDefaultRules
+:set +c
 :set +m
 :set +t
--- :type +d
--- default (Integer, Rational, Float64, Text)
+-- use `:type +d` to inspect default typing
+-- default (Integer, Rational, Float64)
