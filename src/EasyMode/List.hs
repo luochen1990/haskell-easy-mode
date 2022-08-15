@@ -112,12 +112,12 @@ module EasyMode.List
   L.insertBy, -- :: (a -> a -> Ordering) -> a -> [a] -> [a]
   L.maximumBy, -- :: Foldable t => (a -> a -> Ordering) -> t a -> a
   L.minimumBy, -- :: Foldable t => (a -> a -> Ordering) -> t a -> a
-  L.genericLength, -- :: Num i => [a] -> i
-  L.genericTake, -- :: Integral i => i -> [a] -> [a]
-  L.genericDrop, -- :: Integral i => i -> [a] -> [a]
-  L.genericSplitAt, -- :: Integral i => i -> [a] -> ([a], [a])
-  L.genericIndex, -- :: Integral i => [a] -> i -> a
-  L.genericReplicate, -- :: Integral i => i -> a -> [a]
+  -- L.genericLength, -- :: Num i => [a] -> i
+  -- L.genericTake, -- :: Integral i => i -> [a] -> [a]
+  -- L.genericDrop, -- :: Integral i => i -> [a] -> [a]
+  -- L.genericSplitAt, -- :: Integral i => i -> [a] -> ([a], [a])
+  -- L.genericIndex, -- :: Integral i => [a] -> i -> a
+  -- L.genericReplicate, -- :: Integral i => i -> a -> [a]
   module EasyMode.List
 )
 where
@@ -141,14 +141,14 @@ last = L.last
 tail :: Partial => [a] -> [a]
 tail = L.tail
 
-take :: Integer -> [a] -> [a]
-take n xs = L.take (pcast n) xs
+take :: Integral i => i -> [a] -> [a]
+take = L.genericTake
 
-drop :: Integer -> [a] -> [a]
-drop n xs = L.drop (pcast n) xs
+drop :: Integral i => i -> [a] -> [a]
+drop = L.genericDrop
 
-(!!) :: [a] -> Integer -> a
-xs !! n = xs L.!! (pcast n)
+(!!) :: Integral i => [a] -> i -> a
+(!!) = L.genericIndex
 
 groupBy :: (Hashable k, Foldable f) => (a -> k) -> f a -> M.HashMap k [a]
 groupBy key xs = M.fromListWith (L.++) (L.map (\x -> (key x, L.singleton x)) (F.toList xs))
@@ -171,11 +171,11 @@ foldr1 op xs = assume (not (L.null xs)) (L.foldr1 op xs)
 length :: Foldable t => t a -> Integer
 length xs = cast (L.length xs)
 
-replicate :: Integer -> a -> [a]
-replicate n x = L.replicate (pcast n) x
+replicate :: Integral i => i -> a -> [a]
+replicate = L.genericReplicate
 
-splitAt :: Integer -> [a] -> ([a], [a])
-splitAt n xs = L.splitAt (pcast n) xs
+splitAt :: Integral i => i -> [a] -> ([a], [a])
+splitAt = L.genericSplitAt
 
 elemIndex :: Eq a => a -> [a] -> Maybe Integer
 elemIndex x xs = fmap cast (L.elemIndex x xs)
