@@ -10,7 +10,7 @@ import qualified Prelude as P
 inc = (+ 1)
 double = (* 2)
 
-data Student = Student {name :: Text, score :: Integer} deriving (P.Show, Eq, Ord)
+data Student = Student {name :: Text, score :: Integer} deriving (Show, Eq, Ord)
 
 main :: IO ()
 main = do

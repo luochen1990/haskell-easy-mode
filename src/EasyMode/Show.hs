@@ -1,12 +1,14 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module EasyMode.Show (
+    Show,
     show,
 ) where
 
 import Data.Function ((&))
 import Data.Text (Text, pack, unpack)
 import qualified GHC.Real as P (Ratio ((:%)), (%))
+import Prelude (Show)
 import qualified Prelude as P
 
 -- import qualified TextShow as T
