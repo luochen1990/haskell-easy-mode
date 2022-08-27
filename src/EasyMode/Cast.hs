@@ -5,6 +5,7 @@ module EasyMode.Cast (
     module EasyMode.Cast,
 ) where
 
+import Control.Monad ((>=>))
 import Data.Char (isDigit, ord)
 import qualified Data.HashMap.Strict as M
 import Data.Hashable (Hashable)
@@ -13,32 +14,35 @@ import Data.String (String)
 import EasyMode.Layers.L1
 import GHC.Real (fromIntegral)
 import GHC.Types (Int)
-import Prelude (Rational, all, realToFrac, reverse, sum, zip, (^))
+import Prelude (Rational, all, const, either, maybe, realToFrac, reverse, sum, zip, (^))
 
 -- * Cast & PartialCast
 
-{-
-
+{- |
  Rule 1: cast should not lost information:
 
     forall a b: Type, x: a.  (pcast (cast x :: b) :: a) == x
-
 -}
-
 class Cast target source where
     cast :: source -> target
 
+{- |
+ minimal impl: ecast | mcast
+-}
 class PartialCast target source where
-    pcast ::
-        Partial =>
-        source ->
-        -- | opinionated cast
-        target
-    pcast x = case mcast x of
-        Nothing -> complain ("opinionated cast failed!")
-        Just y -> y
+    -- | opinionated partial cast
+    pcast :: Partial => source -> target
+    pcast x = case ecast x of
+        Left msg -> complain msg
+        Right r -> r
 
+    -- | partial cast which returns Maybe
     mcast :: source -> Maybe target
+    mcast x = either (const Nothing) Just (ecast x)
+
+    -- | partial cast which returns (Either Text)
+    ecast :: source -> Either Text target
+    ecast x = maybe (Left "partial cast failed!") Right (mcast x)
 
 -- * reflexive instance
 
@@ -72,11 +76,13 @@ instance Cast String Text where cast = unpack
 instance Cast Integer Int where cast = fromIntegral
 
 instance PartialCast Int Integer where
-    mcast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then Just (fromIntegral x) else Nothing
-    pcast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then fromIntegral x else complain ("cannot cast Integer to Int since overflow")
+    ecast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then Right (fromIntegral x) else Left "cannot cast this Integer to Int since accuracy overflow"
 
 instance PartialCast Integer String where
-    mcast s = let ds = reverse s in if all isDigit ds then Just (sum [10 ^ i * fromIntegral (ord d - ord '0') | (i, d) <- zip [0 ..] ds]) else Nothing
+    ecast s = let ds = reverse s in if all isDigit ds then Right (sum [10 ^ i * fromIntegral (ord d - ord '0') | (i, d) <- zip [0 ..] ds]) else Left "cannot parse this String to Integer"
+
+instance PartialCast Int String where
+    ecast = (ecast :: String -> Either Text Integer) >=> ecast
 
 instance PartialCast Integer Text where mcast s = mcast (unpack s)
 
