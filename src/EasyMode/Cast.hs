@@ -133,8 +133,8 @@ instance Cast String HexString where cast hex = unpack (toText hex)
 instance Cast Integer HexString where
     cast hs = let [(r, m)] = (readHex (toString hs)) in r -- TODO: optmize
 
-instance Cast HexString Integer where
-    cast x = pcast (pack (showHex x "")) -- TODO: optmize
+instance PartialCast HexString Integer where
+    ecast x = if x >= 0 then Right (pcast (pack (showHex x ""))) else Left "negative Integer cannot be cast to HexString" -- TODO: optmize
 
 -- * instances for maps
 
@@ -164,3 +164,18 @@ toPairs = cast
 
 toMap :: Hashable k => [(k, v)] -> M.HashMap k v
 toMap = cast
+
+asInteger :: Integer -> Integer
+asInteger = id
+
+asFloat :: Float64 -> Float64
+asFloat = id
+
+asText :: Text -> Text
+asText = id
+
+asString :: String -> String
+asString = id
+
+asHex :: HexString -> HexString
+asHex = id
