@@ -6,6 +6,8 @@ module EasyMode.Cast (
 ) where
 
 import Control.Monad ((>=>))
+import qualified Data.ByteString as BS
+import Data.ByteString.Base16 as Base16
 import Data.Char (isDigit, ord)
 import Data.Functor (fmap)
 import qualified Data.HashMap.Strict as M
@@ -13,14 +15,14 @@ import Data.Hashable (Hashable)
 import Data.List (head, length, (!!))
 import Data.Maybe (Maybe (..))
 import Data.String (String)
+import Data.Text.Encoding (decodeLatin1, encodeUtf8)
 import Data.Tuple (fst, snd)
 import EasyMode.Layers.L1
 import GHC.Real (fromIntegral)
 import GHC.Types (Int)
 import Numeric (readHex)
 import Numeric.Extra (showHex)
-import Text.Hex (decodeHex, encodeHex)
-import Prelude (Rational, all, const, either, maybe, realToFrac, reverse, sum, zip, (^))
+import Prelude (Rational, all, const, either, even, maybe, realToFrac, reverse, sum, zip, (^))
 
 -- * Cast & PartialCast
 
@@ -118,14 +120,18 @@ instance Cast ByteString HexString where cast (HexString bs) = bs
 
 instance Cast HexString ByteString where cast bs = HexString bs
 
-instance Cast Text HexString where cast (HexString bs) = encodeHex bs
+instance Cast Text HexString where cast (HexString bs) = decodeLatin1 (Base16.encode bs)
 
-instance PartialCast HexString Text where mcast txt = fmap HexString (decodeHex txt)
+instance PartialCast HexString Text where
+    ecast txt = either (Left <<< pack) (Right <<< HexString) (decodeHex (encodeUtf8 txt))
+      where
+        decodeHex :: ByteString -> Either String ByteString
+        decodeHex bs = Base16.decode (if even (BS.length bs) then bs else "0" ++ bs)
 
 instance Cast String HexString where cast hex = unpack (toText hex)
 
 instance Cast Integer HexString where
-    cast (HexString bs) = let (r, m) = head (readHex (unpack (toText bs))) in assert (length m == 0) r -- TODO: optmize
+    cast hs = let [(r, m)] = (readHex (toString hs)) in r -- TODO: optmize
 
 instance Cast HexString Integer where
     cast x = pcast (pack (showHex x "")) -- TODO: optmize
@@ -146,6 +152,12 @@ toFloat = cast
 
 toText :: Cast Text a => a -> Text
 toText = cast
+
+toString :: Cast String a => a -> String
+toString = cast
+
+toHex :: Cast HexString a => a -> HexString
+toHex = cast
 
 toPairs :: Cast [(k, v)] (f k v) => f k v -> [(k, v)]
 toPairs = cast
