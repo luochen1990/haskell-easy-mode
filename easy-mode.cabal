@@ -33,6 +33,7 @@ library
       EasyMode.Layers.L2
       EasyMode.Layers.L3
       EasyMode.List
+      EasyMode.Shell
       EasyMode.Show
   other-modules:
       Paths_easy_mode
@@ -63,6 +64,7 @@ library
     , ghc-prim
     , hashable
     , memory
+    , process
     , text
     , text-show
     , unordered-containers
@@ -86,6 +88,7 @@ executable easy-mode-exe
     , ghc-prim
     , hashable
     , memory
+    , process
     , text
     , text-show
     , unordered-containers
@@ -110,6 +113,7 @@ test-suite easy-mode-test
     , ghc-prim
     , hashable
     , memory
+    , process
     , text
     , text-show
     , unordered-containers
