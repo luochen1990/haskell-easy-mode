@@ -179,3 +179,9 @@ asString = id
 
 asHex :: HexString -> HexString
 asHex = id
+
+asPairs :: [(k, v)] -> [(k, v)]
+asPairs = id
+
+asMap :: M.HashMap k v -> M.HashMap k v
+asMap = id
