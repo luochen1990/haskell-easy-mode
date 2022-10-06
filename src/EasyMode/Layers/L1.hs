@@ -4,4 +4,5 @@ module EasyMode.Layers.L1 (
 
 import EasyMode.Basics as L1
 import EasyMode.Error as L1
+import EasyMode.HexString as L1
 import EasyMode.Show as L1

@@ -30,6 +30,7 @@ dependencies:
 - text
 - text-show
 - cryptonite
+- hex-text
 
 library:
   source-dirs: src

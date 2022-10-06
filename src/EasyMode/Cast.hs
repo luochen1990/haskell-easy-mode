@@ -7,13 +7,19 @@ module EasyMode.Cast (
 
 import Control.Monad ((>=>))
 import Data.Char (isDigit, ord)
+import Data.Functor (fmap)
 import qualified Data.HashMap.Strict as M
 import Data.Hashable (Hashable)
+import Data.List (head, length, (!!))
 import Data.Maybe (Maybe (..))
 import Data.String (String)
+import Data.Tuple (fst, snd)
 import EasyMode.Layers.L1
 import GHC.Real (fromIntegral)
 import GHC.Types (Int)
+import Numeric (readHex)
+import Numeric.Extra (showHex)
+import Text.Hex (decodeHex, encodeHex)
 import Prelude (Rational, all, const, either, maybe, realToFrac, reverse, sum, zip, (^))
 
 -- * Cast & PartialCast
@@ -105,6 +111,24 @@ instance Cast Float32 Integer where cast = fromIntegral
 instance Cast Float32 Float64 where cast = realToFrac
 
 instance Integral a => Cast Float32 (Ratio a) where cast = realToFrac
+
+-- * instances for hex
+
+instance Cast ByteString HexString where cast (HexString bs) = bs
+
+instance Cast HexString ByteString where cast bs = HexString bs
+
+instance Cast Text HexString where cast (HexString bs) = encodeHex bs
+
+instance PartialCast HexString Text where mcast txt = fmap HexString (decodeHex txt)
+
+instance Cast String HexString where cast hex = unpack (toText hex)
+
+instance Cast Integer HexString where
+    cast (HexString bs) = let (r, m) = head (readHex (unpack (toText bs))) in assert (length m == 0) r -- TODO: optmize
+
+instance Cast HexString Integer where
+    cast x = pcast (pack (showHex x "")) -- TODO: optmize
 
 -- * instances for maps
 

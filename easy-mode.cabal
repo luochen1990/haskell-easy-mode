@@ -28,6 +28,7 @@ library
       EasyMode.Basics
       EasyMode.Cast
       EasyMode.Error
+      EasyMode.HexString
       EasyMode.Layers.L1
       EasyMode.Layers.L2
       EasyMode.Layers.L3
@@ -60,6 +61,7 @@ library
     , extra
     , ghc-prim
     , hashable
+    , hex-text
     , memory
     , text
     , text-show
@@ -82,6 +84,7 @@ executable easy-mode-exe
     , extra
     , ghc-prim
     , hashable
+    , hex-text
     , memory
     , text
     , text-show
@@ -105,6 +108,7 @@ test-suite easy-mode-test
     , extra
     , ghc-prim
     , hashable
+    , hex-text
     , memory
     , text
     , text-show
