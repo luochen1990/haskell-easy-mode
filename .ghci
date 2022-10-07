@@ -10,6 +10,13 @@
 :seti -XDeriveDataTypeable
 
 :seti -XExtendedDefaultRules
+
+:def h1 \x -> Prelude.return (":!hoogle --count=10 " Prelude.++ x)
+:def h2 \x -> Prelude.return (":!hoogle --count=20 " Prelude.++ x)
+:def h3 \x -> Prelude.return (":!hoogle --count=30 " Prelude.++ x)
+:def h4 \x -> Prelude.return (":!hoogle --count=40 " Prelude.++ x)
+:def h5 \x -> Prelude.return (":!hoogle --count=50 " Prelude.++ x)
+
 :set +c
 :set +m
 :set +t
