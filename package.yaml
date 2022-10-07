@@ -30,7 +30,6 @@ dependencies:
 - text
 - text-show
 - cryptonite
-- base16-bytestring
 - process
 
 library:

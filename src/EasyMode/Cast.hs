@@ -6,8 +6,8 @@ module EasyMode.Cast (
 ) where
 
 import Control.Monad ((>=>))
+import Data.ByteArray.Encoding (Base (Base16), convertFromBase, convertToBase)
 import qualified Data.ByteString as BS
-import Data.ByteString.Base16 as Base16
 import Data.Char (isDigit, ord)
 import Data.Functor (fmap)
 import qualified Data.HashMap.Strict as M
@@ -134,13 +134,13 @@ instance Cast ByteString HexString where cast (HexString bs) = bs
 
 instance Cast HexString ByteString where cast bs = HexString bs
 
-instance Cast Text HexString where cast (HexString bs) = decodeLatin1 (Base16.encode bs)
+instance Cast Text HexString where cast (HexString bs) = decodeLatin1 (convertToBase Base16 bs)
 
 instance PartialCast HexString Text where
     ecast txt = either (Left <<< pack) (Right <<< HexString) (decodeHex (encodeUtf8 txt))
       where
         decodeHex :: ByteString -> Either String ByteString
-        decodeHex bs = Base16.decode (if even (BS.length bs) then bs else "0" ++ bs)
+        decodeHex bs = convertFromBase Base16 (if even (BS.length bs) then bs else "0" ++ bs)
 
 instance Cast String HexString where cast hex = unpack (toText hex)
 

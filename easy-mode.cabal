@@ -56,7 +56,6 @@ library
       StandaloneDeriving
   build-depends:
       base >=4.7 && <5
-    , base16-bytestring
     , bytestring
     , containers
     , cryptonite
@@ -79,7 +78,6 @@ executable easy-mode-exe
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , base16-bytestring
     , bytestring
     , containers
     , cryptonite
@@ -104,7 +102,6 @@ test-suite easy-mode-test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , base16-bytestring
     , bytestring
     , containers
     , cryptonite
