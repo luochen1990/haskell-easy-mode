@@ -95,11 +95,18 @@ instance PartialCast Integer String where
         [(x, r)] -> Left ("cannot parse this String to Integer, invalid chars: `" ++ pack r ++ "`")
         _ -> impossible
 
+instance PartialCast Float64 String where
+    ecast s = case reads s of
+        [(x, [])] -> Right x
+        [(x, r)] -> Left ("cannot parse this String to Float64, invalid chars: `" ++ pack r ++ "`")
+        _ -> impossible
 
 instance PartialCast Int String where
     ecast = (ecast :: String -> Either Text Integer) >=> ecast
 
 instance PartialCast Integer Text where mcast s = mcast (unpack s)
+
+instance PartialCast Float64 Text where mcast s = mcast (unpack s)
 
 instance Cast Integer Bool where cast b = if b then 1 else 0
 
