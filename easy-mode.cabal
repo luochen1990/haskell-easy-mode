@@ -27,6 +27,7 @@ library
       EasyMode
       EasyMode.Basics
       EasyMode.Cast
+      EasyMode.Crypt
       EasyMode.Error
       EasyMode.HexString
       EasyMode.Layers.L1
