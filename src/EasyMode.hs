@@ -17,6 +17,7 @@ import qualified Data.Set as Set
 import Data.Traversable as EasyMode
 import Data.Typeable as EasyMode hiding (cast)
 import EasyMode.Layers.L3 as EasyMode
+import qualified Prelude as Prelude
 
 default (Integer, Rational, Float64, Text)
 
