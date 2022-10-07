@@ -61,6 +61,7 @@ import Data.Function as Export (id)
 
 import Control.Arrow as Export (Arrow (..), (<<<), (>>>))
 import Control.Monad as Export (Monad (..))
+import Data.Functor as Export (Functor (..))
 import Data.Monoid as Export (Monoid (..))
 import Data.Semigroup as Export (Semigroup (..))
 
