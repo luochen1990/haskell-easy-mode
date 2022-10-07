@@ -15,3 +15,6 @@ shellEval cmd = do
     case code of
         ExitSuccess -> return (Right (pack out))
         ExitFailure errCode -> return (Left (errCode, (pack err)))
+
+shellLit :: Text -> Text
+shellLit txt = "'" ++ txt ++ "'"
