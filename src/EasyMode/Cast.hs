@@ -22,7 +22,7 @@ import GHC.Real (fromIntegral)
 import GHC.Types (Int)
 import Numeric (readHex)
 import Numeric.Extra (showHex)
-import Prelude (Rational, all, const, either, even, maybe, realToFrac, reverse, sum, zip, (^))
+import Prelude (Rational, all, const, either, even, maybe, reads, realToFrac, reverse, sum, zip, (^))
 
 -- * Cast & PartialCast
 
@@ -84,10 +84,17 @@ instance Cast String Text where cast = unpack
 instance Cast Integer Int where cast = fromIntegral
 
 instance PartialCast Int Integer where
-    ecast x = if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int) then Right (fromIntegral x) else Left "cannot cast this Integer to Int since accuracy overflow"
+    ecast x =
+        if x <= fromIntegral (maxBound :: Int) && x >= fromIntegral (minBound :: Int)
+            then Right (fromIntegral x)
+            else Left "cannot cast this Integer to Int since accuracy overflow"
 
 instance PartialCast Integer String where
-    ecast s = let ds = reverse s in if all isDigit ds then Right (sum [10 ^ i * fromIntegral (ord d - ord '0') | (i, d) <- zip [0 ..] ds]) else Left "cannot parse this String to Integer"
+    ecast s = case reads s of
+        [(x, [])] -> Right x
+        [(x, r)] -> Left ("cannot parse this String to Integer, invalid chars: `" ++ pack r ++ "`")
+        _ -> impossible
+
 
 instance PartialCast Int String where
     ecast = (ecast :: String -> Either Text Integer) >=> ecast
