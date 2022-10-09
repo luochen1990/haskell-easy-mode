@@ -1,8 +1,6 @@
-cabal-version: 1.12
+cabal-version: 2.2
 
--- This file has been generated from package.yaml by hpack version 0.34.7.
---
--- see: https://github.com/sol/hpack
+-- DOC: https://cabal.readthedocs.io/en/latest/cabal-package.html
 
 name:         easy-mode
 version:      0.1.0.0
@@ -12,7 +10,7 @@ bug-reports:  https://github.com/luochen1990/haskell-easy-mode/issues
 author:       LuoChen
 maintainer:   luochen1990@gmail.com
 copyright:    2022 LuoChen
-license:      GPL
+license:      GPL-3.0-or-later
 license-file: LICENSE
 build-type:   Simple
 extra-source-files:
@@ -22,7 +20,28 @@ source-repository head
   type: git
   location: https://github.com/luochen1990/haskell-easy-mode
 
+
+common common
+  default-language: Haskell2010
+  other-modules:
+      Paths_easy_mode
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , containers
+    , cryptonite
+    , extra
+    , ghc-prim
+    , hashable
+    , memory
+    , process
+    , text
+    , text-show
+    , unordered-containers
+
+
 library
+  import: common
   exposed-modules:
       EasyMode
       EasyMode.Basics
@@ -36,8 +55,6 @@ library
       EasyMode.List
       EasyMode.Shell
       EasyMode.Show
-  other-modules:
-      Paths_easy_mode
   hs-source-dirs:
       src
   default-extensions:
@@ -55,64 +72,23 @@ library
       DeriveDataTypeable
       DerivingVia
       StandaloneDeriving
-  build-depends:
-      base >=4.7 && <5
-    , bytestring
-    , containers
-    , cryptonite
-    , extra
-    , ghc-prim
-    , hashable
-    , memory
-    , process
-    , text
-    , text-show
-    , unordered-containers
-  default-language: Haskell2010
 
 executable easy-mode-exe
+  import: common
   main-is: Main.hs
-  other-modules:
-      Paths_easy_mode
+  build-depends:
+      easy-mode
   hs-source-dirs:
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
-  build-depends:
-      base >=4.7 && <5
-    , bytestring
-    , containers
-    , cryptonite
-    , easy-mode
-    , extra
-    , ghc-prim
-    , hashable
-    , memory
-    , process
-    , text
-    , text-show
-    , unordered-containers
-  default-language: Haskell2010
 
 test-suite easy-mode-test
+  import: common
   type: exitcode-stdio-1.0
   main-is: Spec.hs
-  other-modules:
-      Paths_easy_mode
+  build-depends:
+      easy-mode
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
-  build-depends:
-      base >=4.7 && <5
-    , bytestring
-    , containers
-    , cryptonite
-    , easy-mode
-    , extra
-    , ghc-prim
-    , hashable
-    , memory
-    , process
-    , text
-    , text-show
-    , unordered-containers
-  default-language: Haskell2010
+
