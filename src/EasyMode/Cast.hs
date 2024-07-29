@@ -158,11 +158,11 @@ instance Hashable k => Cast (M.HashMap k v) [(k, v)] where cast = M.fromList
 
 -- * helper functions
 
-toInteger :: Cast Integer a => a -> Integer
-toInteger = cast
+toInteger :: PartialCast Integer a => a -> Integer
+toInteger = pcast
 
-toFloat :: Cast Float64 a => a -> Float64
-toFloat = cast
+toFloat :: PartialCast Float64 a => a -> Float64
+toFloat = pcast
 
 toText :: Cast Text a => a -> Text
 toText = cast
