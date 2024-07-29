@@ -1,4 +1,4 @@
-cabal-version: 2.2
+cabal-version: 3.0
 
 -- DOC: https://cabal.readthedocs.io/en/latest/cabal-package.html
 
@@ -20,8 +20,7 @@ source-repository head
   type: git
   location: https://github.com/luochen1990/haskell-easy-mode
 
-
-common common
+common common-options
   default-language: Haskell2010
   other-modules:
       Paths_easy_mode
@@ -38,25 +37,6 @@ common common
     , text
     , text-show
     , unordered-containers
-
-
-library
-  import: common
-  exposed-modules:
-      EasyMode
-      EasyMode.Basics
-      EasyMode.Cast
-      EasyMode.Crypt
-      EasyMode.Error
-      EasyMode.HexString
-      EasyMode.Layers.L1
-      EasyMode.Layers.L2
-      EasyMode.Layers.L3
-      EasyMode.List
-      EasyMode.Shell
-      EasyMode.Show
-  hs-source-dirs:
-      src
   default-extensions:
       NoImplicitPrelude
       ScopedTypeVariables
@@ -73,8 +53,26 @@ library
       DerivingVia
       StandaloneDeriving
 
+library
+  import: common-options
+  exposed-modules:
+      EasyMode
+      EasyMode.Basics
+      EasyMode.Cast
+      EasyMode.Crypt
+      EasyMode.Error
+      EasyMode.HexString
+      EasyMode.Layers.L1
+      EasyMode.Layers.L2
+      EasyMode.Layers.L3
+      EasyMode.List
+      EasyMode.Shell
+      EasyMode.Show
+  hs-source-dirs:
+      src
+
 executable easy-mode-exe
-  import: common
+  import: common-options
   main-is: Main.hs
   build-depends:
       easy-mode
@@ -83,7 +81,7 @@ executable easy-mode-exe
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
 
 test-suite easy-mode-test
-  import: common
+  import: common-options
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   build-depends:
@@ -91,4 +89,5 @@ test-suite easy-mode-test
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
-
+  other-modules:
+      Paths_easy_mode
