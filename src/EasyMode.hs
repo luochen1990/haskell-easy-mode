@@ -17,22 +17,18 @@ import qualified Data.Set as Set
 import Data.Traversable as EasyMode
 import Data.Typeable as EasyMode hiding (cast)
 import EasyMode.Layers.L3 as EasyMode
-import qualified Prelude as Prelude
+
+-- import Prelude hiding (fromString, fromInteger)
 
 default (Integer, Rational, Float64, Text)
 
--- this is for RebindableSyntax
+
+---- this is for RebindableSyntax
 -- fromString :: String -> Text
 -- fromString = pack
 --
 -- fromInteger :: Integer -> Integer
 -- fromInteger = id
---
+
 -- ifThenElse :: Bool -> a -> a -> a
 -- ifThenElse p x y = case p of True -> x; False -> y;
-
--- f :: Partial => Text -> Integer
--- f s = buckpassing (ocast s)
---
--- g :: Partial => Text -> Integer
--- g s = buckpassing (f (s <> "0"))
