@@ -3,6 +3,17 @@ EasyMode
 
 A Prelude alternative aims on **easy to use**
 
+Features
+--------
+
+- Use `Text` instead of `String` (i.e. `[Chat]`) by default.
+- Use `Integer` instead of `Int` by default.
+- All Partial Functions are marked as `Partial =>` so you will not miss the stack trace.
+- All functions follows the [**LISO**](./doc/LISO.md) (Loose Input and Strict Output) Principle.
+- There's NO need to consider the global uniqueness of **field names** anymore.
+- Easy-to-use type casting functions.
+- Accountable Error Handling ([**AEH**](./doc/AEH.md)).
+
 Usage
 -----
 
