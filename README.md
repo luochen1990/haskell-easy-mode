@@ -6,7 +6,7 @@ A Prelude alternative aims on **easy to use**
 Features
 --------
 
-- Use `Text` instead of `String` (i.e. `[Chat]`) by default.
+- Use `Text` instead of `String` (i.e. `[Char]`) by default.
 - Use `Integer` instead of `Int` by default.
 - All Partial Functions are marked as `Partial =>` so you will not miss the stack trace.
 - All functions follows the [**LISO**](./doc/LISO.md) (Loose Input and Strict Output) Principle.
