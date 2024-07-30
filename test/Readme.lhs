@@ -18,7 +18,7 @@ Most of the Haskell syntax you are familiar with is supported here
 
 Except for `.` which is now used for field access
 
-> test1 = do
+> main = do
 >     print s1.name
 >     print s1.score
 >
@@ -27,7 +27,6 @@ Except for `.` which is now used for field access
 
 And `.` is also used for flipped function application, which is very similar to field access
 
-> test2 = do
 >     print (1 . inc)
 >     print (1 . double . inc)
 >     print (double 1 . inc)
@@ -35,7 +34,6 @@ And `.` is also used for flipped function application, which is very similar to 
 
 If you want `.` back, use `<<<` instead, and `>>>` is also available as a flipped version
 
-> test3 = do
 >     print (1 . (inc >>> double))
 >     print (1 . (double <<< inc))
 >     print (1 . ((+ 1) >>> (* 2)))
@@ -44,7 +42,6 @@ there is no special handling here because a function is also an instance of Arro
 
 And there are also handy tool functions like `groubBy` and `toPairs`
 
-> test4 = do
 >     let students = [s1, Student "bob" 60, s1{score = 99}]
 >     print (students . groupBy (.name) . toPairs . map (second length))
 >
@@ -58,8 +55,7 @@ Type casting is easy here, just use `as*` to constraint type of literal and `to*
 \ignore{
 \begin{code}
 
-  main :: IO ()
-  main = test1 >> test2 >> test3 >> test4
+-- these code is invisible to the reader
 
 \end{code}
 }
