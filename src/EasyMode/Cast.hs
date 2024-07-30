@@ -132,7 +132,7 @@ instance Integral a => CastTo Float32 (Ratio a) where cast = realToFrac
 
 instance CastTo ByteString HexString where cast (HexString bs) = bs
 
-instance CastTo HexString ByteString where cast bs = HexString bs
+instance CastTo HexString ByteString where cast = HexString
 
 instance CastTo Text HexString where cast (HexString bs) = decodeLatin1 (convertToBase Base16 bs)
 
@@ -145,7 +145,7 @@ instance PartialCastTo HexString Text where
 instance CastTo String HexString where cast hex = unpack (toText hex)
 
 instance CastTo Integer HexString where
-    cast hs = let [(r, m)] = (readHex (toString hs)) in r -- TODO: optmize
+    cast hs = let [(r, m)] = readHex (toString hs) in r -- TODO: optmize
 
 instance PartialCastTo HexString Integer where
     ecast x = if x >= 0 then Right (pcast (pack (showHex x ""))) else Left "negative Integer cannot be cast to HexString" -- TODO: optmize
@@ -160,6 +160,9 @@ instance Hashable k => CastTo (M.HashMap k v) [(k, v)] where cast = M.fromList
 
 toInteger :: PartialCastTo Integer a => a -> Integer
 toInteger = pcast
+
+toInt :: PartialCastTo Int a => a -> Int
+toInt = pcast
 
 toFloat :: PartialCastTo Float64 a => a -> Float64
 toFloat = pcast
@@ -181,6 +184,9 @@ toMap = cast
 
 asInteger :: Integer -> Integer
 asInteger = id
+
+asInt :: Int -> Int
+asInt = id
 
 asFloat :: Float64 -> Float64
 asFloat = id
