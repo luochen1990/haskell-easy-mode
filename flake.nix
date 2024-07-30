@@ -46,7 +46,6 @@
       };
       ghci-h = {
         type = "app";
-        #program = "${packages.${system}.default}/bin/${project_name}";
         program = "${pkgs.writeShellScript "${project-name}-ghci" ''
           exec ${ghc-h}/bin/ghci -ghci-script ${
             pkgs.writeText ".ghci" ''
@@ -57,6 +56,7 @@
               :set -XNoImplicitPrelude
               :set -interactive-print=Text.Pretty.Simple.pPrint
               :set -fdiagnostics-color=always
+              :set prompt "\ESC[35m\STX λ: \ESC[m\STX"
               :module + EasyMode
             ''
           }
