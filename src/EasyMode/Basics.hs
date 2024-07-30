@@ -51,11 +51,11 @@ import qualified Data.Set as Set
 -- io types
 
 import GHC.Types as Export (IO)
-import System.IO as Export (print)
+import System.IO as Export (print, putStrLn, putStr, getLine, readFile, writeFile)
 
 -- functions
 
-import Data.Function as Export (id)
+import Data.Function as Export (id, const, flip, on, ($))
 
 -- abstract algebra
 

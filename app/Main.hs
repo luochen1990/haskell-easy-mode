@@ -1,4 +1,6 @@
 module Main where
 
+import EasyMode
+
 main :: IO ()
-main = putStrLn "Hello, Haskell!"
+main = putStrLn "Hello, Haskell EasyMode!"
