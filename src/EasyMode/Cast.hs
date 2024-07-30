@@ -98,12 +98,14 @@ instance PartialCastTo Integer String where
     ecast s = case reads s of
         [(x, [])] -> Right x
         [(x, r)] -> Left ("cannot parse this String to Integer, invalid chars: `" ++ pack r ++ "`")
+        [] -> Left ("cannot parse this String to Integer: `" ++ pack s ++ "`")
         _ -> impossible
 
 instance PartialCastTo Float64 String where
     ecast s = case reads s of
         [(x, [])] -> Right x
         [(x, r)] -> Left ("cannot parse this String to Float64, invalid chars: `" ++ pack r ++ "`")
+        [] -> Left ("cannot parse this String to Float64: `" ++ pack s ++ "`")
         _ -> impossible
 
 instance PartialCastTo Int String where
