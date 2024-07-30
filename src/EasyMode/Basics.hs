@@ -51,7 +51,7 @@ import qualified Data.Set as Set
 -- io types
 
 import GHC.Types as Export (IO)
-import System.IO as Export (print, putStrLn, putStr, getLine, readFile, writeFile)
+import System.IO as Export (print)
 
 -- functions
 

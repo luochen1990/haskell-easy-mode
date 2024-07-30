@@ -1,15 +1,19 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module EasyMode.Show (
+    module Export,
     Show,
     show,
 ) where
 
 import Data.Function ((&))
 import Data.Text (Text, pack, unpack)
+import Data.Text.IO as Export (hPutStr, hPutStrLn, putStr, putStrLn, getLine, readFile, writeFile)
 import qualified GHC.Real as P (Ratio ((:%)), (%))
 import Prelude (Show)
 import qualified Prelude as P
+
+import System.IO as IO
 
 -- import qualified TextShow as T
 -- import Data.Text.Lazy as T (toStrict)
