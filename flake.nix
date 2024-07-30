@@ -14,6 +14,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
       hpkgs = pkgs.haskell.packages.${ghc-version};
       ghc = hpkgs.ghcWithPackages (p: [ self.packages.${system}.default ]);
+      ghc-h = hpkgs.ghcWithPackages (p: [ self.packages.${system}.default p.pretty-simple ]);
     });
   in
   rec {
@@ -26,12 +27,11 @@
         (with hpkgs; [ haskell-language-server cabal-install ]);
     });
 
-    apps = eachSystem ({pkgs, ghc, system, ...}: {
-      default = {
+    apps = eachSystem ({pkgs, ghc, ghc-h, system, ...}: rec {
+      default = ghci-h;
+      ghci = {
         type = "app";
-        #program = "${packages.${system}.default}/bin/${project_name}";
         program = "${pkgs.writeShellScript "${project-name}-ghci" ''
-          #export GHC_PACKAGE_PATH=${ "${packages.${system}.default}/" }
           exec ${ghc}/bin/ghci -ghci-script ${
             pkgs.writeText ".ghci" ''
               :set -XOverloadedStrings
@@ -43,6 +43,28 @@
             ''
           }
         ''}";
+      };
+      ghci-h = {
+        type = "app";
+        #program = "${packages.${system}.default}/bin/${project_name}";
+        program = "${pkgs.writeShellScript "${project-name}-ghci" ''
+          exec ${ghc-h}/bin/ghci -ghci-script ${
+            pkgs.writeText ".ghci" ''
+              :set -XOverloadedStrings
+              :set -XOverloadedRecordDot
+              :set -XDuplicateRecordFields
+              :set -XNoFieldSelectors
+              :set -XNoImplicitPrelude
+              :set -interactive-print=Text.Pretty.Simple.pPrint
+              :set -fdiagnostics-color=always
+              :module + EasyMode
+            ''
+          }
+        ''}";
+      };
+      main = {
+        type = "app";
+        program = "${packages.${system}.default}/bin/${project-name}";
       };
     });
   };
