@@ -16,6 +16,7 @@ import qualified Data.Map.Strict as MS
 import qualified Data.Map.Lazy as ML
 import qualified Data.Set as S
 import qualified Data.List as L
+import qualified Data.Text.Lazy as TL
 import Data.Hashable (Hashable)
 import Data.List (head, length, (!!))
 import Data.Maybe (Maybe (..))
@@ -81,6 +82,10 @@ instance CastTo Text ByteString where cast = decodeUtf8
 -- instance Cast Text (Digest a)   where cast = toHex
 
 instance CastTo Text String where cast = pack
+
+instance CastTo Text TL.Text where cast = TL.toStrict
+
+instance CastTo TL.Text Text where cast = TL.fromStrict
 
 instance CastTo String Text where cast = unpack
 
