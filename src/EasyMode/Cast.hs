@@ -8,12 +8,14 @@ module EasyMode.Cast (
 import Control.Monad ((>=>))
 import Data.ByteArray.Encoding (Base (Base16), convertFromBase, convertToBase)
 import qualified Data.ByteString as BS
-import Data.Char (isDigit, ord)
+import qualified Data.Char as C
 import Data.Functor (fmap)
 import qualified Data.HashMap.Strict as HMS
 import qualified Data.HashMap.Lazy as HML
 import qualified Data.Map.Strict as MS
 import qualified Data.Map.Lazy as ML
+import qualified Data.Set as S
+import qualified Data.List as L
 import Data.Hashable (Hashable)
 import Data.List (head, length, (!!))
 import Data.Maybe (Maybe (..))
@@ -153,6 +155,14 @@ instance CastTo Integer HexString where
 instance PartialCastTo HexString Integer where
     ecast x = if x >= 0 then Right (pcast (pack (showHex x ""))) else Left "negative Integer cannot be cast to HexString" -- TODO: optmize
 
+-- * instances for list
+
+-- TODO: impl
+
+-- * instances for set
+
+-- TODO: impl
+
 -- * instances for maps
 
 instance CastTo [(k, v)] (HMS.HashMap k v) where cast = HMS.toList
@@ -183,6 +193,9 @@ toString = cast
 toHex :: CastTo HexString a => a -> HexString
 toHex = cast
 
+toList :: CastTo [a] b => b -> [a]
+toList = cast
+
 toPairs :: CastTo [(k, v)] (f k v) => f k v -> [(k, v)]
 toPairs = cast
 
@@ -191,6 +204,23 @@ toHashMap = cast
 
 toMap :: CastTo (ML.Map k v) a => a -> ML.Map k v
 toMap = cast
+
+-- * Python-style helper functions for type cast
+
+int :: PartialCastTo Integer a => a -> Integer
+int = toInteger
+
+float :: PartialCastTo Float64 a => a -> Float64
+float = toFloat
+
+str :: CastTo Text a => a -> Text
+str = toText
+
+chr :: PartialCastTo Int a => a -> Char
+chr x = C.chr (pcast x)
+
+ord :: CastTo Char a => a -> Int
+ord c = C.ord (cast c)
 
 -- * helper functions for type specification
 
