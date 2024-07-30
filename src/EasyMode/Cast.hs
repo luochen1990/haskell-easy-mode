@@ -87,7 +87,11 @@ instance CastTo Text TL.Text where cast = TL.toStrict
 
 instance CastTo TL.Text Text where cast = TL.fromStrict
 
+instance CastTo TL.Text String where cast = TL.pack
+
 instance CastTo String Text where cast = unpack
+
+instance CastTo String TL.Text where cast = TL.unpack
 
 -- * instances for number
 
