@@ -17,6 +17,14 @@ Features
 Usage
 -----
 
+### REPL
+
+```shell
+nix run github:luochen1990/haskell-easy-mode
+```
+
+### Coding
+
 EasyMode depends on several language extensions, see the doc about [preparation](./doc/prepare.md).
 
 Now we start coding.
