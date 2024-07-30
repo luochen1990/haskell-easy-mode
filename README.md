@@ -6,13 +6,13 @@ A Prelude alternative aims on **easy to use**
 Features
 --------
 
-- Use `Text` instead of `String` (i.e. `[Char]`) by default.
-- Use `Integer` instead of `Int` by default.
+- Make it easy to Use `Text` instead of `String` by default, but you can still use both if you want.
+- Make it easy to Use `Integer` instead of `Int` by default, but you can still use both if you want.
+- Easy-to-use **type casting** tool functions (e.g. `toText`, `toPairs`, `toMap`), including Python-style functions (e.g. `int`, `float`, `chr`, `ord`).
+- There's NO need to consider the global uniqueness of **field names** anymore.
 - All Partial Functions are marked as `Partial =>` so you will not miss the stack trace.
 - All functions follows the [**LISO**](./doc/LISO.md) (Loose Input and Strict Output) Principle.
-- There's NO need to consider the global uniqueness of **field names** anymore.
-- Easy-to-use type casting functions.
-- Accountable Error Handling ([**AEH**](./doc/AEH.md)).
+- Bounded Accountability Error Handling ([**BAEH**](./doc/BAEH.md)).
 
 Usage
 -----
