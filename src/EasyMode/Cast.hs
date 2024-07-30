@@ -1,6 +1,3 @@
-{-# LANGUAGE ConstraintKinds #-}
-{-# LANGUAGE OverloadedStrings #-}
-
 module EasyMode.Cast (
     module EasyMode.Cast,
 ) where
