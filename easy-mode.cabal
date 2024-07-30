@@ -102,6 +102,6 @@ test-suite easy-mode-test
 test-suite readme-test
   import: user-options
   type: exitcode-stdio-1.0
-  main-is: Readme.lhs
+  main-is: Readme.hs
   hs-source-dirs:
       test

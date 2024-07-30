@@ -1,28 +1,3 @@
-EasyMode
-========
-
-A Prelude alternative aims on **easy to use**
-
-Features
---------
-
-- Make it easy to Use `Text` instead of `String` by default, but you can still use both if you want.
-- Make it easy to Use `Integer` instead of `Int` by default, but you can still use both if you want.
-- Easy-to-use **type casting** tool functions (e.g. `toText`, `toPairs`, `toMap`), including Python-style functions (e.g. `int`, `float`, `chr`, `ord`).
-- There's NO need to consider the global uniqueness of **field names** anymore.
-- All Partial Functions are marked as `Partial =>` so you will not miss the stack trace.
-- All functions follows the [**LISO**](./doc/LISO.md) (Loose Input and Strict Output) Principle.
-- Bounded Accountability Error Handling ([**BAEH**](./doc/BAEH.md)).
-
-Usage
------
-
-EasyMode depends on several language extensions, see the doc about [preparation](./doc/prepare.md).
-
-Now we start coding.
-
-```haskell
-
 -- First, you need to import EasyMode instead of Prelude
 import EasyMode
 
@@ -68,4 +43,3 @@ main = do
 
 -- Type casting is easy here, just use `as*` to constraint type of literal and `to*` to cast it to what you want
     print ("1" . asText . toInteger + 2 . asInteger)
-```
