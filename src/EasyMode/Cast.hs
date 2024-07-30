@@ -10,7 +10,10 @@ import Data.ByteArray.Encoding (Base (Base16), convertFromBase, convertToBase)
 import qualified Data.ByteString as BS
 import Data.Char (isDigit, ord)
 import Data.Functor (fmap)
-import qualified Data.HashMap.Strict as M
+import qualified Data.HashMap.Strict as HMS
+import qualified Data.HashMap.Lazy as HML
+import qualified Data.Map.Strict as MS
+import qualified Data.Map.Lazy as ML
 import Data.Hashable (Hashable)
 import Data.List (head, length, (!!))
 import Data.Maybe (Maybe (..))
@@ -152,11 +155,15 @@ instance PartialCastTo HexString Integer where
 
 -- * instances for maps
 
-instance CastTo [(k, v)] (M.HashMap k v) where cast = M.toList
+instance CastTo [(k, v)] (HMS.HashMap k v) where cast = HMS.toList
 
-instance Hashable k => CastTo (M.HashMap k v) [(k, v)] where cast = M.fromList
+instance CastTo [(k, v)] (ML.Map k v) where cast = ML.toList
 
--- * helper functions
+instance Hashable k => CastTo (HMS.HashMap k v) [(k, v)] where cast = HMS.fromList
+
+instance Ord k => CastTo (ML.Map k v) [(k, v)] where cast = ML.fromList
+
+-- * helper functions for type cast
 
 toInteger :: PartialCastTo Integer a => a -> Integer
 toInteger = pcast
@@ -179,8 +186,13 @@ toHex = cast
 toPairs :: CastTo [(k, v)] (f k v) => f k v -> [(k, v)]
 toPairs = cast
 
-toMap :: Hashable k => [(k, v)] -> M.HashMap k v
+toHashMap :: CastTo (HMS.HashMap k v) a => a -> HMS.HashMap k v
+toHashMap = cast
+
+toMap :: CastTo (ML.Map k v) a => a -> ML.Map k v
 toMap = cast
+
+-- * helper functions for type specification
 
 asInteger :: Integer -> Integer
 asInteger = id
@@ -203,5 +215,5 @@ asHex = id
 asPairs :: [(k, v)] -> [(k, v)]
 asPairs = id
 
-asMap :: M.HashMap k v -> M.HashMap k v
+asMap :: HMS.HashMap k v -> HMS.HashMap k v
 asMap = id
